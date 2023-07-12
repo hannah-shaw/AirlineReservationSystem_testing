@@ -9,6 +9,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author hannahshaw
+ * @version 1.0
+ * @date 2023-07-12
+ */
+
 public class Flight {
     private int flightID;
     private String departTo;

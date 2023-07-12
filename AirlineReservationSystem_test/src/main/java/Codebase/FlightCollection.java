@@ -2,6 +2,12 @@ package Codebase;
 
 import java.util.ArrayList;
 
+/**
+ * @author hannahshaw
+ * @version 1.0
+ * @date 2023-07-12
+ */
+
 public class FlightCollection {
 	
 	public static ArrayList<Flight> flights = new ArrayList<Flight>();

@@ -9,10 +9,10 @@ public abstract class Person //abstract class Person
     public Person(){}
 
     public Person(String firstName, String secondName, int age, String gender){
-        this.age=age;
-        this.firstName=firstName;
-        this.secondName=secondName;
-        this.gender=gender;
+        this.setFirstName(firstName);
+        this.setSecondName(secondName);
+        this.setAge(age);
+        this.setGender(gender);
     }
 
     public int getAge() {
@@ -20,6 +20,9 @@ public abstract class Person //abstract class Person
     }
 
     public void setAge(int age) {
+        if(age <= 0) {
+            throw new IllegalArgumentException("Age should be positive");
+        }
         this.age = age;
     }
 
@@ -28,6 +31,13 @@ public abstract class Person //abstract class Person
     }
 
     public void setGender(String gender) {
+        if(gender == null || gender.trim().equals("") ) {
+            throw new IllegalArgumentException("Gender cannot be empty");
+        }
+        else if (!gender.equals("Man") && !gender.equals("Woman") && !gender.equals("Non-binary|gender diverse")
+                && !gender.equals("Prefer not to say") && !gender.equals("Other")) {
+            throw new IllegalArgumentException("Invalid gender field value");
+        }
         this.gender = gender;
     }
 
@@ -40,10 +50,22 @@ public abstract class Person //abstract class Person
     }
 
     public void setFirstName(String firstName) {
+        if(firstName.trim().equals("") || firstName == null){
+            throw new IllegalArgumentException("Firstname cannot be empty");
+        }
+        if(!firstName.matches("^[a-zA-Z]*$")) {
+            throw new IllegalArgumentException("Firstname should not start with a number or symbol and can contain only lower-case and upper-case alphabet letters");
+        }
         this.firstName = firstName;
     }
 
     public void setSecondName(String secondName) {
+        if(secondName.trim().equals("") || secondName == null){
+            throw new IllegalArgumentException("secondName cannot be empty");
+        }
+        if(!secondName.matches("^[a-zA-Z]*$")) {
+            throw new IllegalArgumentException("secondName should not start with a number or symbol and can contain only lower-case and upper-case alphabet letters");
+        }
         this.secondName = secondName;
     }
 

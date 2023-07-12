@@ -12,12 +12,12 @@ public class Passenger extends Person
 
     public Passenger(String firstName, String secondName, int age, String gender,String email, String phoneNumber, String passport, String cardNumber,int securityCode)
     {
-        super();
-        this.securityCode=securityCode;
-        this.cardNumber=cardNumber;
-        this.passport=passport;
-        this.email=email;
-        this.phoneNumber=phoneNumber;
+        super(firstName, secondName, age, gender);
+        this.setSecurityCode(securityCode);
+        this.setCardNumber(cardNumber);
+        this.setPassport(passport);
+        this.setEmail(email);
+        this.setPhoneNumber(phoneNumber);
     }
 
     public String getEmail() {
@@ -25,6 +25,12 @@ public class Passenger extends Person
     }
 
     public void setEmail(String email) {
+        if(email == null|| email.trim().equals("") ){
+            throw new IllegalArgumentException("Email cannot be empty");
+        }
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+\\.com$")) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
         this.email = email;
     }
 
@@ -65,6 +71,9 @@ public class Passenger extends Person
     }
 
     public void setCardNumber(String cardNumber) {
+        if(cardNumber == null|| cardNumber.trim().equals("") ){
+            throw new IllegalArgumentException("cardNumber cannot be empty");
+        }
         this.cardNumber = cardNumber;
     }
 
@@ -78,7 +87,13 @@ public class Passenger extends Person
     }
 
     public void setPassport(String passport) {
-        this.passport = passport;
+        if (passport.length() == 0) {
+            throw new IllegalArgumentException("Passport number cannot be empty");
+        } else if (passport.length() > 9 ){
+            throw new IllegalArgumentException("Passport number should not be more than 9 characters long");
+        } else {
+            this.passport = passport;
+        }
     }
 
     @Override
@@ -87,7 +102,12 @@ public class Passenger extends Person
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if (phoneNumber.length() == 0) {
+            throw new IllegalArgumentException("phoneNumber cannot be empty");
+        }
+        if (phoneNumber.matches("^(?:\\+61 |0)[4-5]\\d{8}$"))
+            this.phoneNumber = phoneNumber;
+        else throw new IllegalArgumentException("Invalid phone number");
     }
 
     @Override
