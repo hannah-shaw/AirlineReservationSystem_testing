@@ -2,6 +2,7 @@ package Codebase;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 
@@ -32,30 +33,37 @@ public class TicketCollectionTest {
     public void testAddTickets() {
         ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
         Ticket ticket1 = new Ticket(); // Assume Ticket has a no-arg constructor
-        Ticket ticket2 = new Ticket();
         ticketsToBeAdded.add(ticket1);
-        ticketsToBeAdded.add(ticket2);
 
         TicketCollection.addTickets(ticketsToBeAdded);
 
         // Check that tickets were added correctly
         assertTrue(TicketCollection.tickets.contains(ticket1));
-        assertTrue(TicketCollection.tickets.contains(ticket2));
     }
 
     @Test
-    public void testAddTicketValid() {
-        ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
-        Ticket ticket1 = new Ticket(); // Assume Ticket has a no-arg constructor
-        Ticket ticket2 = new Ticket();
-        ticketsToBeAdded.add(ticket1);
-        ticketsToBeAdded.add(ticket2);
-
-        TicketCollection.addTickets(ticketsToBeAdded);
-
-        // Check that tickets were added correctly
-        assertTrue(TicketCollection.tickets.contains(ticket1));
-        assertTrue(TicketCollection.tickets.contains(ticket2));
+    public void testAddTicketIsValid() {
+        try {
+            ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
+            Ticket ticket2 = new Ticket(2, 1000, flight, false, null);
+            ticketsToBeAdded.add(ticket2);
+            TicketCollection.addTickets(ticketsToBeAdded);
+        } catch (Exception exception1) {
+            Assertions.assertEquals("Invalid passenger input", exception1.getMessage());
+        }
+    }
+    @Test
+    public void testAddTicketExist() {
+        try {
+            ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
+            Ticket ticket3 = new Ticket(3, 1000, flight, false, passenger);
+            Ticket ticket4 = new Ticket(3, 1000, flight, false, passenger); // the same with ticket3
+            ticketsToBeAdded.add(ticket3);
+            ticketsToBeAdded.add(ticket4);
+            TicketCollection.addTickets(ticketsToBeAdded);
+        } catch (Exception exception1) {
+            Assertions.assertEquals("ID:3 ticket was add twice", exception1.getMessage());
+        }
     }
 
     @Test

@@ -11,6 +11,24 @@ public class TicketCollection {
 	}
 
 	public static void addTickets(ArrayList<Ticket> tickets_db) {
+		// Check whether add exist ticket
+		ArrayList<Integer> ticketTempList = new ArrayList<Integer>();
+		for(Ticket tempTicket: tickets_db) {
+			if( tempTicket!=null){
+				if (ticketTempList.contains(tempTicket.getTicket_id()))
+					throw new IllegalArgumentException( "ID:" + tempTicket.getTicket_id() + " ticket was add twice");
+				else {
+					ticketTempList.add(tempTicket.getTicket_id());
+					for (Ticket existingTicket : tickets) {
+						if (existingTicket.getTicket_id() == tempTicket.getTicket_id())
+							throw new IllegalArgumentException( "ID:" + tempTicket.getTicket_id() + " ticket is already exist");
+					}
+				}
+			}
+			else {
+				throw new IllegalArgumentException("Invalid null ticket in list");
+			}
+		}
 		TicketCollection.tickets.addAll(tickets_db);
 	}
 	

@@ -98,13 +98,13 @@ class TicketTest {
     }
 
     @Test
-    void testTicketPriceValid() {
+    void testIsTicketPriceValid() {
         Throwable exception1 = assertThrows(RuntimeException.class, () -> ticket.setPrice(-1));
         Assertions.assertEquals(("Invalid price value"), exception1.getMessage());
     }
 
     @Test
-    void testFlightPassengerValid() {
+    void testIsFlightPassengerValid() {
         Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> {
             new Ticket(1, 1000, null, false, passenger);
         });
