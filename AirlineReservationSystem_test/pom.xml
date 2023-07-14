@@ -19,5 +19,10 @@
             <artifactId>junit-jupiter-migration-support</artifactId>
             <version>5.0.0-M4</version>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.2.0</version>
+        </dependency>
     </dependencies>
 </project>

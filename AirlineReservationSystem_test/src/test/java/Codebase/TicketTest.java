@@ -1,5 +1,6 @@
 package Codebase;
 import Codebase.Passenger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class TicketTest {
         airplane = new Airplane(5171, "Boeing747", 30, 130, 6);
         passenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
         flight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane);
-        ticket = new Ticket(1, 200, flight, false, passenger);
+        ticket = new Ticket(1, 1000, flight, false, passenger);
     }
     @Test
     public void testSetandGetTicketId(){
@@ -58,8 +59,39 @@ class TicketTest {
     @Test
     public void testtoString(){
         assertEquals("Ticket{" +'\n'+
-                "Price=" + 200 + "KZT, " + '\n' +
+                "Price=" + 1000 + "KZT, " + '\n' +
                 flight +'\n'+ "Vip status=" + false + '\n' +
                 passenger +'\n'+ "Ticket was purchased=" + false + "\n}",ticket.toString());
     }
+    @Test
+    void testTicketStatusAfterCreation() {
+        assertFalse(ticket.getTicketStatus());
+    }
+    void testTicketPriceAlwaysApplied() {
+        assertNotEquals(0, ticket.getPrice());
+    }
+
+    @Test
+    void testDiscountByAge() {
+        passenger.setAge(10);
+        ticket.setPrice(1000);
+        assertEquals(560, ticket.getPrice());
+
+        passenger.setAge(70);
+        ticket.setPrice(1000);
+        assertEquals(0, ticket.getPrice());
+    }
+
+    @Test
+    void testServiceTaxApplied() {
+        ticket.setPrice(1000);
+        assertEquals(1120, ticket.getPrice());
+    }
+
+    @Test
+    void testFlightPassengerInformationValid() {
+        assertNotNull(ticket.getFlight());
+        assertNotNull(ticket.getPassenger());
+    }
+
 }

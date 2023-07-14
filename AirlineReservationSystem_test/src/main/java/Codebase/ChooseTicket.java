@@ -30,7 +30,7 @@ public class ChooseTicket{
 	        
 	        int ticket_id = in.nextInt();
 	        
-	        //validate ticker here
+	        //validate ticket here
 	        
 	        //buy ticket here
 	        buyTicket.buyTicket(ticket_id);

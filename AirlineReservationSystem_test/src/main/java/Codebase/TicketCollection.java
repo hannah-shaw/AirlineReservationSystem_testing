@@ -16,11 +16,18 @@ public class TicketCollection {
 	
 	public static void getAllTickets() {
     	//display all available tickets from the Ticket collection
+		for (Ticket ticket : tickets){
+			System.out.println(ticket.toString()+"\n");
+		}
     }
 	public static Ticket getTicketInfo(int ticket_id) {
     	//SELECT a ticket where ticket id = ticket_id
+		for (Ticket ticket : tickets){
+			if(ticket.getTicket_id() == ticket_id){
+				return ticket;
+			}
+		}
     	return null;
-
     }
 	
 
