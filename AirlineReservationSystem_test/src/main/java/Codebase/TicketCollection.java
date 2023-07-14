@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TicketCollection {
 	
-	public static ArrayList<Ticket> tickets;
+	public static ArrayList<Ticket> tickets = new ArrayList<>();
 
 	public static ArrayList<Ticket> getTickets() {
 		return tickets;
@@ -14,11 +14,12 @@ public class TicketCollection {
 		TicketCollection.tickets.addAll(tickets_db);
 	}
 	
-	public static void getAllTickets() {
+	public static ArrayList<Ticket> getAllTickets() {
     	//display all available tickets from the Ticket collection
 		for (Ticket ticket : tickets){
 			System.out.println(ticket.toString()+"\n");
 		}
+		return getTickets();
     }
 	public static Ticket getTicketInfo(int ticket_id) {
     	//SELECT a ticket where ticket id = ticket_id

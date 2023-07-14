@@ -10,9 +10,12 @@ public class TicketSystem {
     Flight flight = new Flight();
     Ticket ticket = new Ticket();
     Scanner in = new Scanner(System.in);
-
+    private TicketCollection ticketCollection;
+    private FlightCollection flightCollection;
     //combine the construct function of BuyTicket and ChooseTicket
-    public TicketSystem(){
+    public TicketSystem(TicketCollection ticketCollection,FlightCollection flightCollection){
+        this.ticketCollection = ticketCollection;
+        this.flightCollection = flightCollection;
         passenger = new Passenger();
         flight = new Flight();
         ticket = new Ticket();
