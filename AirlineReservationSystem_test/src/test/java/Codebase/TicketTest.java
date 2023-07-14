@@ -3,6 +3,9 @@ import Codebase.Passenger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Null;
+
+import java.nio.channels.NonWritableChannelException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -93,5 +96,24 @@ class TicketTest {
         assertNotNull(ticket.getFlight());
         assertNotNull(ticket.getPassenger());
     }
+
+    @Test
+    void testTicketPriceValid() {
+        Throwable exception1 = assertThrows(RuntimeException.class, () -> ticket.setPrice(-1));
+        Assertions.assertEquals(("Invalid price value"), exception1.getMessage());
+    }
+
+    @Test
+    void testFlightPassengerValid() {
+        Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> {
+            new Ticket(1, 1000, null, false, passenger);
+        });
+        Assertions.assertEquals("Invalid flight input", exception1.getMessage());
+        Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            new Ticket(1, 1000, flight, false, null);
+        });
+        Assertions.assertEquals("Invalid passenger input", exception2.getMessage());
+    }
+
 
 }

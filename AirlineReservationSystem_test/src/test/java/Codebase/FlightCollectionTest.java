@@ -125,4 +125,22 @@ class FlightCollectionTest {
         Assertions.assertEquals(("No such flight exists"), exception1.getMessage());
     }
 
+    @Test
+    void allThetestGetFlightInfoById() {
+        testAddFlights();
+        Assertions.assertEquals(flight1, FlightCollection.getFlightInfo(3));
+        Assertions.assertEquals(flight2, FlightCollection.getFlightInfo(4));
+
+        Throwable exception1 = assertThrows(RuntimeException.class, () -> FlightCollection.getFlightInfo(1));
+        Assertions.assertEquals(("No such flight exists"), exception1.getMessage());
+    }
+
+    @Test
+    void testAddExistFlight() {
+        // Add the flight2 twice
+        flights.add(flight2);
+        Throwable exception1 = assertThrows(RuntimeException.class, () -> FlightCollection.addFlights(flights));
+        Assertions.assertEquals(("4 is already existing"), exception1.getMessage());
+    }
+
 }

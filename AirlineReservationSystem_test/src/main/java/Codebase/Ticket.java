@@ -8,14 +8,19 @@ public class Ticket
     private boolean status; //indicates status of ticket: if it is bought by someone or not
     Passenger passenger;
 
-    public Ticket(int ticket_id,int price, Flight flight, boolean classVip, Passenger passenger)
+    public Ticket(int ticket_id, int price, Flight flight, boolean classVip, Passenger passenger)
     {
-        this.ticket_id=ticket_id;
-        this.price = price;
-        this.flight = flight;
+        //this.passenger=passenger;
+        this.setPassenger(passenger);
+        //this.flight = flight;
+        this.setFlight(flight);
         this.classVip = classVip;
         this.status = false;
-        this.passenger=passenger;
+        this.ticket_id=ticket_id;
+        //this.price = price;
+        this.setPrice(price);
+
+
     }
 
     public Ticket() {
@@ -32,11 +37,19 @@ public class Ticket
 
     public int getPrice() { return price; }
 
+    // Test whether the price is valid (must > 0).
+    public void isValidPrice() {
+        if (this.price <= 0) {
+            throw new IllegalArgumentException("Invalid price value");
+        }
+    }
+
     public void setPrice(int price)
     {
         this.price = price;
         saleByAge(passenger.getAge()); //changes price of the ticket according to the age category of passenger
         serviceTax(); //changes price by adding service tax to the ticket
+        isValidPrice();
     }
 
     public void saleByAge(int age)
@@ -57,6 +70,9 @@ public class Ticket
     }
 
     public void setFlight(Flight flight) {
+        if (flight == null) {
+            throw new IllegalArgumentException("Invalid flight input");
+        }
         this.flight = flight;
     }
 
@@ -89,6 +105,9 @@ public class Ticket
     }
 
     public void setPassenger(Passenger passenger) {
+        if (passenger == null) {
+            throw new IllegalArgumentException("Invalid passenger input");
+        }
         this.passenger = passenger;
     }
 
