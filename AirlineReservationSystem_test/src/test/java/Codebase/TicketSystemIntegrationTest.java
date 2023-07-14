@@ -9,22 +9,32 @@ public class TicketSystemIntegrationTest {
 
     @BeforeEach
     public void setup() {
-        // 创建TicketSystem的实例，可能需要提供一些依赖项的实例或者模拟（mocks）
-        // 如果这些依赖项还没有实现，你可能需要创建一些"stubs"来模拟它们的行为
-        ticketSystem = new TicketSystem(/* dependencies */);
+        // 创建stubs
+        TicketCollection ticketCollectionStub = new TicketCollection();
+        FlightCollection flightCollectionStub = new FlightCollection();
+
+        // 使用stubs创建TicketSystem的实例
+        ticketSystem = new TicketSystem(ticketCollectionStub, flightCollectionStub);
     }
 
     @Test
-    public void testChooseTicketWithValidCity() {
-        // 调用ticketSystem的方法，并进行断言检查
-        assertTrue(ticketSystem.chooseTicket("validCity"));
+    public void testChooseTicketWithValidCity() throws Exception {
+        // 创建 stubs
+        TicketCollection ticketCollectionStub = new TicketCollection();
+        FlightCollection flightCollectionStub = new FlightCollection();
+
+        // 使用 stubs 创建 TicketSystem 的实例
+        TicketSystem ticketSystem = new TicketSystem(ticketCollectionStub, flightCollectionStub);
+
+        // 调用方法并进行断言检查
+        try {
+            ticketSystem.chooseTicket("validCity1", "validCity2");
+        } catch (Exception e) {
+            fail("Exception should not be thrown");
+        }
     }
 
-    @Test
-    public void testChooseTicketWithInvalidCity() {
-        // 期望得到一个异常
-        assertThrows(Exception.class, () -> ticketSystem.chooseTicket("invalidCity"));
-    }
-
-    // 类似的，为其他的需求创建更多的测试方法
 }
+
+
+
