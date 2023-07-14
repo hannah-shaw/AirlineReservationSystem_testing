@@ -44,6 +44,21 @@ public class TicketCollectionTest {
     }
 
     @Test
+    public void testAddTicketValid() {
+        ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
+        Ticket ticket1 = new Ticket(); // Assume Ticket has a no-arg constructor
+        Ticket ticket2 = new Ticket();
+        ticketsToBeAdded.add(ticket1);
+        ticketsToBeAdded.add(ticket2);
+
+        TicketCollection.addTickets(ticketsToBeAdded);
+
+        // Check that tickets were added correctly
+        assertTrue(TicketCollection.tickets.contains(ticket1));
+        assertTrue(TicketCollection.tickets.contains(ticket2));
+    }
+
+    @Test
     public void testGetTicketInfo() {
         ticket1.setTicket_id(1); // Assume Ticket has a setter for ticket_id
         ticket2.setTicket_id(2);
