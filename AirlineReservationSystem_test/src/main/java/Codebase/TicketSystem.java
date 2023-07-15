@@ -30,6 +30,13 @@ public class TicketSystem {
         Flight flight = new Flight();
         flight = FlightCollection.getFlightInfo(city1, city2);
 
+        // Check if the city parameters are valid
+        if(city1 == "" || city2 == ""){
+            throw new IllegalArgumentException("City name cannot miss");
+        }
+        if (!city1.matches("^[a-zA-Z\\s]+$") || !city2.matches("^[a-zA-Z\\s]+$"))
+            throw new IllegalArgumentException("City name can only contain letter and space");
+
         if(flight != null)
         {
             TicketCollection.getAllTickets();

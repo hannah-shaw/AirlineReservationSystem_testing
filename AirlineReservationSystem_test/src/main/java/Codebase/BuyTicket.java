@@ -20,6 +20,12 @@ public class BuyTicket <T>
          flight = new Flight();
     }
 
+    public BuyTicket(Passenger passenger, Flight flight, Ticket ticket) {
+        this.passenger = passenger;
+        this.ticket = ticket;
+        this.flight = flight;
+    }
+
     public void showTicket()
     {
         try
