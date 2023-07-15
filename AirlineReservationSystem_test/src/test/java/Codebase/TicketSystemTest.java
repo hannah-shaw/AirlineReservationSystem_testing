@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,11 +33,8 @@ class TicketSystemTest {
 
     }
 
-    // Big Bang Test
     @Test
-    public final void BigBangTest() {
-
-        // Code block to be tested:
+    public final void ChooseTicketTestWithInvalidCity() {
         // Test choose city with invalid city name
         try {
             ticketSystem.chooseTicket("SHANG123", "SUZHOU");
@@ -44,25 +42,32 @@ class TicketSystemTest {
         catch (Exception e1) {
             Assertions.assertEquals("City name can only contain letter and space", e1.getMessage());
         }
-        // Test choose city with NO exist flight
+    }
+
+    @Test
+    public final void ChooseTicketTicketWithInvalidFlight() {
+        // Test choose ticket with NO exist flight
         try {
             ticketSystem.chooseTicket("SHANGHAI", "SUZHOU");
         }
         catch (Exception e2) {
             Assertions.assertEquals("No such flight exists", e2.getMessage());
         }
+    }
 
+//    @Test
+//    public final void ChooseTicketTicketWithValidCity() {
 //        try {
+//
 //            ticketSystem.chooseTicket("SUZHOU", "SHANGHAI");
-//            String input = String.format("10");
-//            System.setIn(new ByteArrayInputStream(input.getBytes()));
+//            String inputID = String.format("10");
+//            System.setIn(new ByteArrayInputStream(inputID.getBytes()));
 //
 //        } catch (Exception e3) {
 //            throw new RuntimeException(e3);
 //        }
+//    }
 
-
-    }
 
 
 
