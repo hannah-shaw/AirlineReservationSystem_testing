@@ -42,7 +42,7 @@ public class Ticket
 
     // Test whether the price is valid (must > 0).
     public void isValidPrice() {
-        if (this.price <= 0) {
+        if (this.price < 0) {
             throw new IllegalArgumentException("Invalid price value");
         }
     }

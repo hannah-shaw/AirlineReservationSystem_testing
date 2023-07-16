@@ -10,6 +10,7 @@ import java.nio.channels.NonWritableChannelException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicketTest {
+    private int cnt=1;
     Ticket ticket;
     Airplane airplane;
     Passenger passenger;
@@ -20,7 +21,8 @@ class TicketTest {
         airplane = new Airplane(5171, "Boeing747", 30, 130, 6);
         passenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
         flight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane);
-        ticket = new Ticket(1, 1000, flight, false, passenger);
+        ticket = new Ticket(cnt, 1000, flight, false, passenger);
+        cnt++;
     }
     @Test
     public void testSetandGetTicketId(){
@@ -62,7 +64,7 @@ class TicketTest {
     @Test
     public void testtoString(){
         assertEquals("Ticket{" +'\n'+
-                "Price=" + 1000 + "KZT, " + '\n' +
+                "Price=" + 1120 + "KZT, " + '\n' +
                 flight +'\n'+ "Vip status=" + false + '\n' +
                 passenger +'\n'+ "Ticket was purchased=" + false + "\n}",ticket.toString());
     }

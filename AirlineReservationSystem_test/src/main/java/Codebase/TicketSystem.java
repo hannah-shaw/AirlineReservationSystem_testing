@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class TicketSystem {
+
     Passenger passenger = new Passenger();
     Flight flight = new Flight();
     Ticket ticket = new Ticket();
