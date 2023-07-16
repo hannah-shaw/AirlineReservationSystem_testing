@@ -89,6 +89,102 @@
 //    }
 //
 //}
-//
-//
-//
+
+package Codebase;
+
+import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import java.util.Arrays;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+class TicketSystemIntegrationTest {
+
+    Airplane DummyAirplane;
+    Passenger DummyPassenger;
+    Flight DummyFlight;
+
+    Flight NullFlight;
+    Passenger NullPassenger;
+    Ticket DummyTicket;
+    FlightCollection DummyFlightCollection;
+    TicketCollection DummyTicketCollection;
+    TicketSystem ticketSystem;
+
+    BuyTicket buyTicket;
+
+
+    @BeforeEach
+    public void setUp(){
+        // Dummy Data:
+        DummyAirplane = new Airplane(5171, "Boeing747", 30, 130, 6);
+        DummyPassenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
+        DummyFlight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", DummyAirplane);
+        DummyTicket = new Ticket(1, 1000, DummyFlight, false, DummyPassenger);
+        DummyFlightCollection = new FlightCollection();
+        DummyTicketCollection = new TicketCollection();
+        DummyFlightCollection.flights.add(DummyFlight);
+        DummyTicketCollection.tickets.add(DummyTicket);
+
+        // Create ticketSystem by Dummy Data
+        ticketSystem = new TicketSystem(DummyTicketCollection, DummyFlightCollection);
+
+
+    }
+
+    @Test
+    public final void ChooseTicketTestWithInvalidCity() {
+        // Test choose city with invalid city name
+        try {
+            ticketSystem.chooseTicket("SHANG123", "SUZHOU");
+        }
+        catch (Exception e1) {
+            Assertions.assertEquals("City name can only contain letter and space", e1.getMessage());
+        }
+    }
+
+    @Test
+    public final void ChooseTicketTicketWithInvalidFlight() {
+        // Test choose ticket with NO exist flight
+        try {
+            ticketSystem.chooseTicket("SHANGHAI", "SUZHOU");
+        }
+        catch (Exception e2) {
+            Assertions.assertEquals("No such flight exists", e2.getMessage());
+        }
+    }
+
+    @Test
+    public void testValidFlightInformation() throws Exception {
+        Throwable e = assertThrows(IllegalArgumentException.class, () -> {
+            TicketCollection.tickets = new ArrayList<>();
+            TicketCollection.tickets.add(new Ticket(1, 1000, NullFlight, false, DummyPassenger));
+            String input = String.format("Jinhui\nYuan\n24\nMan\njinhyuan@monash.com\n13290959072\nCN\n1\n123456\n123");
+            System.setIn(new ByteArrayInputStream(input.getBytes()));
+            buyTicket = new BuyTicket();
+            buyTicket.buyTicket(1);
+        });
+        assertEquals("Invalid flight input", e.getMessage());
+    }
+
+    @Test
+    public void testValidPassengerInformation() throws Exception {
+        Throwable e = assertThrows(IllegalArgumentException.class, () -> {
+            TicketCollection.tickets = new ArrayList<>();
+            TicketCollection.tickets.add(new Ticket(1, 1000, DummyFlight, false, NullPassenger));
+            String input = String.format("Jinhui\nYuan\n24\nMan\njinhyuan@monash.com\n13290959072\nCN\n1\n123456\n123");
+            System.setIn(new ByteArrayInputStream(input.getBytes()));
+            buyTicket = new BuyTicket();
+            buyTicket.buyTicket(1);
+        });
+        assertEquals("Invalid passenger input", e.getMessage());
+    }
+}
+

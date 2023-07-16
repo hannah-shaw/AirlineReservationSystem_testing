@@ -81,6 +81,13 @@ class TicketSystemTest {
         when(scannerMock.next()).thenReturn("John");
         Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(1));
     }
+
+    @Test
+    public void testCorrectTicketInformation() throws Exception {
+        when(scannerMock.nextInt()).thenReturn(1);
+        when(scannerMock.next()).thenReturn("John");
+        Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(1));
+    }
 }
 
 
