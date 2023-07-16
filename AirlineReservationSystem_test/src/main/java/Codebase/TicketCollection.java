@@ -42,7 +42,7 @@ public class TicketCollection {
 	public static Ticket getTicketInfo(int ticket_id) {
     	//SELECT a ticket where ticket id = ticket_id
 		for (Ticket ticket : tickets){
-			if(ticket.getTicket_id() == ticket_id){
+			if((ticket.getTicket_id() == ticket_id) && (ticket.ticketStatus() == false)){
 				return ticket;
 			}
 		}

@@ -16,9 +16,7 @@ public class TicketSystem {
     public TicketSystem(TicketCollection ticketCollection,FlightCollection flightCollection){
         this.ticketCollection = ticketCollection;
         this.flightCollection = flightCollection;
-        passenger = new Passenger();
-        flight = new Flight();
-        ticket = new Ticket();
+
     }
 
     public void chooseTicket(String city1, String city2) throws Exception
@@ -27,8 +25,7 @@ public class TicketSystem {
         int idFirst = 0;
         int idSecond = 0;
 
-        Flight flight = new Flight();
-        flight = FlightCollection.getFlightInfo(city1, city2);
+        flight = flightCollection.getFlightInfo(city1, city2);
 
         // Check if the city parameters are valid
         if(city1 == "" || city2 == ""){
@@ -39,7 +36,7 @@ public class TicketSystem {
 
         if(flight != null)
         {
-            TicketCollection.getAllTickets();
+            ticketCollection.getAllTickets();
             System.out.println("\nEnter ID of ticket you want to choose:");
             int ticket_id = in.nextInt();
             this.buyTicket(ticket_id);
@@ -62,11 +59,14 @@ public class TicketSystem {
         //method for buying one ticket with direct flight
         int flight_id = 0;
 
-        Ticket validTicket = TicketCollection.getTicketInfo(ticket_id);
+        Ticket validTicket = ticketCollection.getTicketInfo(ticket_id);
+        System.out.println(validTicket);
         //if there is a valid ticket id was input then we buy it, otherwise show message.
-        if(validTicket != null)
+        if(validTicket == null)
         {
-            System.out.println("This ticket does not exist.");
+            System.out.println("This ticket does not exist or has been booked.");
+            throw new IllegalArgumentException("This ticket does not exist or has been booked.");
+//            System.out.println("This ticket does not exist or has been booked.");
         }else{
             //select flight)id from ticket where ticke_id=" + ticket_id
 
@@ -111,7 +111,7 @@ public class TicketSystem {
                 } else
                 {
 
-                    flight = FlightCollection.getFlightInfo(flight_id);
+                    flight = flightCollection.getFlightInfo(flight_id);
 
                     int airplane_id = flight.getAirplane().getAirplaneID();
 

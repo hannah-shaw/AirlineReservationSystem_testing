@@ -70,6 +70,8 @@ public class TicketCollectionTest {
     public void testGetTicketInfo() {
         ticket1.setTicket_id(1); // Assume Ticket has a setter for ticket_id
         ticket2.setTicket_id(2);
+        ticket1.setTicketStatus(true);
+        ticket2.setTicketStatus(true);
         TicketCollection.tickets.add(ticket1);
         TicketCollection.tickets.add(ticket2);
 
