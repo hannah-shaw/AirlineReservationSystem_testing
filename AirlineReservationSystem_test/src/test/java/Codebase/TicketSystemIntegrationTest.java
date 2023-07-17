@@ -101,6 +101,7 @@ import java.util.Arrays;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -117,13 +118,14 @@ class TicketSystemIntegrationTest {
     FlightCollection DummyFlightCollection;
     TicketCollection DummyTicketCollection;
     TicketSystem ticketSystem;
-
+    Scanner scannerMock;
     BuyTicket buyTicket;
 
 
     @BeforeEach
     public void setUp(){
         // Dummy Data:
+        scannerMock = Mockito.mock(Scanner.class);
         DummyAirplane = new Airplane(5171, "Boeing747", 30, 130, 6);
         DummyPassenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
         DummyFlight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", DummyAirplane);
@@ -134,7 +136,7 @@ class TicketSystemIntegrationTest {
         DummyTicketCollection.tickets.add(DummyTicket);
 
         // Create ticketSystem by Dummy Data
-        ticketSystem = new TicketSystem(DummyTicketCollection, DummyFlightCollection);
+        ticketSystem = new TicketSystem(DummyTicketCollection, DummyFlightCollection, scannerMock);
 
 
     }

@@ -11,10 +11,10 @@ import static org.junit.Assert.*;
 public class TicketCollectionTest {
 
     private TicketCollection ticketCollection;
-    Passenger passenger = new Passenger();
-    Flight flight = new Flight();
-    Ticket ticket1 = new Ticket();
-    Ticket ticket2 = new Ticket();
+    Passenger passenger;
+    Flight flight;
+    Ticket ticket1;
+    Ticket ticket2 ;
     Airplane airplane;
 
 
@@ -26,19 +26,28 @@ public class TicketCollectionTest {
         ticket1 = new Ticket(1, 1000, flight, false, passenger);
         ticket2 = new Ticket(2, 1000, flight, false, passenger);
         ticketCollection = new TicketCollection();
-        TicketCollection.tickets = new ArrayList<>(); // Ensures tickets list is empty before each test
+        ticketCollection.tickets = new ArrayList<>(); // Ensures tickets list is empty before each test
     }
 
     @Test
+    public void testgetTickets(){
+        ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            Ticket ticket = new Ticket(i,1000,flight,false,passenger);
+            ticketsToBeAdded.add(ticket);
+        }
+        TicketCollection.addTickets(ticketsToBeAdded);
+    }
+    @Test
     public void testAddTickets() {
         ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
-        Ticket ticket1 = new Ticket(); // Assume Ticket has a no-arg constructor
-        ticketsToBeAdded.add(ticket1);
+        Ticket ticket2 = new Ticket(); // Assume Ticket has a no-arg constructor
+        ticketsToBeAdded.add(ticket2);
 
-        TicketCollection.addTickets(ticketsToBeAdded);
+        ticketCollection.addTickets(ticketsToBeAdded);
 
         // Check that tickets were added correctly
-        assertTrue(TicketCollection.tickets.contains(ticket1));
+        assertTrue(ticketCollection.tickets.contains(ticket2));
     }
 
     @Test
@@ -48,6 +57,7 @@ public class TicketCollectionTest {
             Ticket ticket2 = new Ticket(2, 1000, flight, false, null);
             ticketsToBeAdded.add(ticket2);
             TicketCollection.addTickets(ticketsToBeAdded);
+
         } catch (Exception exception1) {
             Assertions.assertEquals("Invalid passenger input", exception1.getMessage());
         }
@@ -70,12 +80,12 @@ public class TicketCollectionTest {
     public void testGetTicketInfo() {
         ticket1.setTicket_id(1); // Assume Ticket has a setter for ticket_id
         ticket2.setTicket_id(2);
-        ticket1.setTicketStatus(true);
-        ticket2.setTicketStatus(true);
-        TicketCollection.tickets.add(ticket1);
-        TicketCollection.tickets.add(ticket2);
+//        ticket1.setTicketStatus(true);
+//        ticket2.setTicketStatus(true);
+        ticketCollection.tickets.add(ticket1);
+        ticketCollection.tickets.add(ticket2);
 
-        Ticket resultTicket = TicketCollection.getTicketInfo(2);
+        Ticket resultTicket = ticketCollection.getTicketInfo(2);
 
         // Check that the correct ticket was returned
         assertEquals(resultTicket,ticket2);

@@ -1,5 +1,7 @@
 package Codebase;
 
+import org.junit.jupiter.api.Assertions;
+
 import java.sql.*;
 import java.util.*;
 import java.util.regex.PatternSyntaxException;
@@ -9,14 +11,14 @@ public class TicketSystem {
     Passenger passenger = new Passenger();
     Flight flight = new Flight();
     Ticket ticket = new Ticket();
-    Scanner in = new Scanner(System.in);
+    private Scanner in;
     private TicketCollection ticketCollection;
     private FlightCollection flightCollection;
     //combine the construct function of BuyTicket and ChooseTicket
-    public TicketSystem(TicketCollection ticketCollection,FlightCollection flightCollection){
+    public TicketSystem(TicketCollection ticketCollection,FlightCollection flightCollection,Scanner in){
         this.ticketCollection = ticketCollection;
         this.flightCollection = flightCollection;
-
+        this.in = in;
     }
 
     public void chooseTicket(String city1, String city2) throws Exception
@@ -38,7 +40,7 @@ public class TicketSystem {
         {
             ticketCollection.getAllTickets();
             System.out.println("\nEnter ID of ticket you want to choose:");
-            int ticket_id = Integer.parseInt(in.next());
+            int ticket_id = in.nextInt();
             this.buyTicket(ticket_id);
         }
     }
@@ -68,51 +70,48 @@ public class TicketSystem {
             throw new IllegalArgumentException("This ticket does not exist or has been booked.");
 //            System.out.println("This ticket does not exist or has been booked.");
         }else{
-            //select flight)id from ticket where ticke_id=" + ticket_id
+            //select flight_id from ticket where ticke_id=" + ticket_id
 
             flight_id = validTicket.getFlight().getFlightID();
 
             try{
-                try {
                     System.out.println("Enter your First Name: ");
                     //String firstName = "";
-                    String firstName = in.next();
+                    String firstName = in.nextLine();
                     passenger.setFirstName(firstName);
+
 
 
                     System.out.println("Enter your Second name:");
                     //String secondName = "";
-                    String secondName = secondName = in.next();
+                    String secondName = secondName = in.nextLine();
                     passenger.setSecondName(secondName); //setting passengers info
 
                     System.out.println("Enter your age:");
                     //Integer age = 0;
                     //in.next();
-                    int age = Integer.parseInt(in.next());
+                    int age = Integer.parseInt(in.nextLine());
                     passenger.setAge(age);
 
                     System.out.println("Enter your gender: ");
                     //String gender = "";
-                    String gender = in.next();
+                    String gender = in.nextLine();
                     passenger.setGender(gender);
 
                     System.out.println("Enter your e-mail address");
                     //String email = "";
-                    String email = in.next();
+                    String email = in.nextLine();
                     passenger.setEmail(email);
 
                     System.out.println("Enter your phone number (+7):");
                     //String phoneNumber = "";
-                    String phoneNumber = in.next();
+                    String phoneNumber = in.nextLine();
                     passenger.setPhoneNumber(phoneNumber);
 
                     System.out.println("Enter your passport number:");
                     //String passportNumber = "";
-                    String passportNumber = in.next();
+                    String passportNumber = in.nextLine();
                     passenger.setPassport(passportNumber);
-                }catch (IllegalArgumentException e){
-
-                }
                 System.out.println("Do you want to purchase?\n 1-YES 0-NO");
                 int purch = in.nextInt();
                 if (purch == 0)

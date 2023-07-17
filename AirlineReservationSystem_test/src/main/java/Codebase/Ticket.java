@@ -50,6 +50,7 @@ public class Ticket
     public void setPrice(int price)
     {
         this.price = price;
+        // If age is null, like if passenger hasn't been set, return infinite.
         saleByAge(passenger.getAge()); //changes price of the ticket according to the age category of passenger
         serviceTax(); //changes price by adding service tax to the ticket
         isValidPrice();
@@ -58,7 +59,9 @@ public class Ticket
     public void saleByAge(int age)
     {
         int price = getPrice();
-        if(age < 15)
+        if(age == 0)
+            this.price = price;
+        if(age < 15 && age > 0)
         {
             price-=(int)price*0.5;//50% sale for children under 15
             this.price=price;
