@@ -1,44 +1,3 @@
-//package Codebase;
-//
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mockito;
-//
-//import java.util.Scanner;
-//
-//import static org.junit.Assert.assertTrue;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static org.mockito.Mockito.when;
-//
-//class TicketSystemTest {
-//
-//    Airplane DummyAirplane;
-//    Passenger DummyPassenger;
-//    Flight DummyFlight;
-//    Ticket DummyTicket;
-//    FlightCollection DummyFlightCollection;
-//    TicketCollection DummyTicketCollection;
-//    TicketSystem ticketSystem;
-//    Scanner scannerMock;
-//
-//    @BeforeEach
-//    public void setUp(){
-//        // Dummy Data:
-//        DummyAirplane = new Airplane(5171, "Boeing747", 30, 130, 6);
-//        DummyPassenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
-//        DummyFlight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", DummyAirplane);
-//        DummyTicket = new Ticket(1, 1000, DummyFlight, false, DummyPassenger);
-//        DummyFlightCollection = new FlightCollection();
-//        DummyTicketCollection = new TicketCollection();
-//        DummyFlightCollection.flights.add(DummyFlight);
-//        DummyTicketCollection.tickets.add(DummyTicket);
-//        scannerMock = Mockito.mock(Scanner.class);
-//        // Create ticketSystem by Dummy Data
-//        ticketSystem = new TicketSystem(DummyTicketCollection, DummyFlightCollection);
-//        ticketSystem.in = scannerMock;
-//
-//    }
 package Codebase;
 
 import org.junit.jupiter.api.Assertions;
@@ -46,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
@@ -63,7 +23,8 @@ class TicketSystemTest {
         flightCollection = new FlightCollection();
         ticketCollection = new TicketCollection();
         scannerMock = Mockito.mock(Scanner.class);
-        // 创建一个有效的航班和机票
+        // Create a valid flight and ticket
+        ticketCollection.tickets.removeAll(ticketCollection.tickets);
         Airplane airplane = new Airplane(5171, "Boeing747", 30, 130, 6);
         Flight flight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane);
         flightCollection.flights.add(flight);
@@ -74,7 +35,7 @@ class TicketSystemTest {
 
         ticketSystem = new TicketSystem(ticketCollection, flightCollection);
     }
-    @Test
+    @Test//First try of test
     public final void ChooseTicketTestWithInvalidCity() {
         // Test choose city with invalid city name
         try {
@@ -96,7 +57,7 @@ class TicketSystemTest {
         }
     }
 
-    @Test
+    @Test//1st version with pre-setup dummy data
     public void testBuyTicketWithAlreadyBooked() throws Exception{
         ticketCollection.tickets.get(0).setTicketStatus(true);
         System.out.println(ticketCollection.tickets.get(0));
@@ -107,8 +68,30 @@ class TicketSystemTest {
     }
 
     @Test
-    public void testValidatePassengerInformation() throws Exception {
+    public void testBuyTicketWithAlreadyBooked2() throws Exception{
+        Ticket ticket = new Ticket();
+        Flight flight = new Flight();
+        ticketCollection.tickets.add(ticket);
+        ticketCollection.tickets.get(1).setTicketStatus(true);
+        System.out.println(ticketCollection.tickets.toString());
+
+        when(scannerMock.nextInt()).thenReturn(2);
+        Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(2));
+        assertTrue(e.getMessage().contains("This ticket does not exist or has been booked."));
     }
+//    @Test
+//    public void testValidatePassengerInformation() throws Exception {
+//        Mockito.when(scannerMock.next())
+//                .thenReturn("1")  // Choose ticketID
+//                .thenReturn("John")  // firstName
+//                .thenReturn("Doe")  // secondName
+//                .thenReturn("30") //age
+//                .thenReturn("Man")  // gender
+//                .thenReturn("john.doe@gmail.com")  // email
+//                .thenReturn("0412345678")  // phoneNumber
+//                .thenReturn("1234567891111");  // passportNumber
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+//    }
 
     @Test
     public void testCorrectTicketInformation() throws Exception {
