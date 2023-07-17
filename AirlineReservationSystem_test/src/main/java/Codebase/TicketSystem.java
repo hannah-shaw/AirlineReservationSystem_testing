@@ -141,6 +141,7 @@ public class TicketSystem {
                     ticket.setPassenger(passenger);
                     ticket.setTicket_id(ticket_id);
                     ticket.setFlight(flight);
+                    ticket.serviceTax();
                     ticket.setPrice(ticket.getPrice());
                     ticket.setClassVip(ticket.getClassVip());
                     ticket.setTicketStatus(true);

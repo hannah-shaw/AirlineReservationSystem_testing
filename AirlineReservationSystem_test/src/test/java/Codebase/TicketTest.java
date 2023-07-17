@@ -33,7 +33,7 @@ class TicketTest {
     @Test
     public void testSetPriceandGetPrice(){
         ticket.setPrice(100);
-        assertEquals(112, ticket.getPrice());
+        assertEquals(100, ticket.getPrice());
     }
 
     @Test
@@ -64,7 +64,7 @@ class TicketTest {
     @Test
     public void testtoString(){
         assertEquals("Ticket{" +'\n'+
-                "Price=" + 1120 + "KZT, " + '\n' +
+                "Price=" + 1000 + "KZT, " + '\n' +
                 flight +'\n'+ "Vip status=" + false + '\n' +
                 passenger +'\n'+ "Ticket was purchased=" + false + "\n}",ticket.toString());
     }
@@ -80,7 +80,7 @@ class TicketTest {
     void testDiscountByAge() {
         passenger.setAge(10);
         ticket.setPrice(1000);
-        assertEquals(560, ticket.getPrice());
+        assertEquals(500, ticket.getPrice());
 
         passenger.setAge(70);
         ticket.setPrice(1000);
@@ -90,6 +90,7 @@ class TicketTest {
     @Test
     void testServiceTaxApplied() {
         ticket.setPrice(1000);
+        ticket.serviceTax();
         assertEquals(1120, ticket.getPrice());
     }
 

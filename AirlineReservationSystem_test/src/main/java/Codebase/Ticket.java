@@ -20,7 +20,7 @@ public class Ticket
         this.setTicketStatus(status);
         //this.ticket_id=ticket_id;
         this.setTicket_id(ticket_id);
-        //this.price = price;
+        this.price = price;
         this.setPrice(price);
 
 
@@ -52,7 +52,6 @@ public class Ticket
         this.price = price;
         // If age is null, like if passenger hasn't been set, return infinite.
         saleByAge(passenger.getAge()); //changes price of the ticket according to the age category of passenger
-        serviceTax(); //changes price by adding service tax to the ticket
         isValidPrice();
     }
 
