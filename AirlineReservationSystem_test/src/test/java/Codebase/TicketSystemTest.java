@@ -80,8 +80,8 @@ class TicketSystemTest {
                 .thenReturn("John")  // firstName
                 .thenReturn("Doe")  // secondName
                 .thenReturn("-1"); //age
-        Exception e2 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
-        Assertions.assertTrue(e2.getMessage().contains("Age should be positive"));
+        Exception e = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e.getMessage().contains("Age should be positive"));
         Mockito.when(scannerMock.nextLine())
                 .thenReturn("John")  // firstName
                 .thenReturn("Doe")  // secondName
@@ -90,8 +90,8 @@ class TicketSystemTest {
                 .thenReturn("john.doe@gmail.com")  // email
                 .thenReturn("")  // phoneNumber
                 .thenReturn("123456789");  // passportNumber
-        Exception e = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
-        Assertions.assertTrue(e.getMessage().contains("phoneNumber cannot be empty"));
+        Exception e1 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e1.getMessage().contains("phoneNumber cannot be empty"));
         Mockito.when(scannerMock.nextLine())
                 .thenReturn("John")  // firstName
                 .thenReturn("Doe")  // secondName
@@ -100,8 +100,29 @@ class TicketSystemTest {
                 .thenReturn("john.doe@gmail.com")  // email
                 .thenReturn("0412345678")  // phoneNumber
                 .thenReturn("12345678911111111");  // passportNumber
-        Exception e1 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
-        Assertions.assertTrue(e1.getMessage().contains("Passport number should not be more than 9 characters long"));
+        Exception e2 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e2.getMessage().contains("Passport number should not be more than 9 characters long"));
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("John")  // firstName
+                .thenReturn("Doe")  // secondName
+                .thenReturn("30") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("johnom");  // email
+        Exception e3 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e3.getMessage().contains("Invalid email format"));
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("John")  // firstName
+                .thenReturn("Doe")  // secondName
+                .thenReturn("30") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("john.doe@gmail.com")  // email
+                .thenReturn("0412345678")  // phoneNumber
+                .thenReturn("123456789")  // passportNumber
+                .thenReturn("1")
+                .thenReturn("")
+                .thenReturn("2000");
+        Exception e4 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e4.getMessage().contains("cardNumber cannot be empty"));
     }
 
     @Test

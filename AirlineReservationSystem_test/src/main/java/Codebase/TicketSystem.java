@@ -75,51 +75,61 @@ public class TicketSystem {
             flight_id = validTicket.getFlight().getFlightID();
 
             try{
-                    System.out.println("Enter your First Name: ");
-                    //String firstName = "";
-                    String firstName = in.nextLine();
-                    passenger.setFirstName(firstName);
+                System.out.println("Enter your First Name: ");
+                //String firstName = "";
+                String firstName = in.nextLine();
+                passenger.setFirstName(firstName);
+                System.out.println("Your First Name: " + firstName);
 
 
+                System.out.println("Enter your Second name:");
+                //String secondName = "";
+                String secondName = secondName = in.nextLine();
+                passenger.setSecondName(secondName); //setting passengers info
+                System.out.println("Your Second Name: " + secondName);
 
-                    System.out.println("Enter your Second name:");
-                    //String secondName = "";
-                    String secondName = secondName = in.nextLine();
-                    passenger.setSecondName(secondName); //setting passengers info
 
-                    System.out.println("Enter your age:");
-                    //Integer age = 0;
-                    //in.next();
-                    int age = Integer.parseInt(in.nextLine());
-                    passenger.setAge(age);
+                System.out.println("Enter your age:");
+                //Integer age = 0;
+                //in.next();
+                int age = Integer.parseInt(in.nextLine());
+                passenger.setAge(age);
+                System.out.println("Your age: " + age);
 
-                    System.out.println("Enter your gender: ");
-                    //String gender = "";
-                    String gender = in.nextLine();
-                    passenger.setGender(gender);
 
-                    System.out.println("Enter your e-mail address");
-                    //String email = "";
-                    String email = in.nextLine();
-                    passenger.setEmail(email);
+                System.out.println("Enter your gender: ");
+                //String gender = "";
+                String gender = in.nextLine();
+                passenger.setGender(gender);
+                System.out.println("Your gender: " + gender);
 
-                    System.out.println("Enter your phone number (+7):");
-                    //String phoneNumber = "";
-                    String phoneNumber = in.nextLine();
-                    passenger.setPhoneNumber(phoneNumber);
 
-                    System.out.println("Enter your passport number:");
-                    //String passportNumber = "";
-                    String passportNumber = in.nextLine();
-                    passenger.setPassport(passportNumber);
+                System.out.println("Enter your e-mail address");
+                //String email = "";
+                String email = in.nextLine();
+                passenger.setEmail(email);
+                System.out.println("Your eamil: " + email);
+
+
+                System.out.println("Enter your phone number (+7):");
+                //String phoneNumber = "";
+                String phoneNumber = in.nextLine();
+                passenger.setPhoneNumber(phoneNumber);
+                System.out.println("Your phoneNumber: " + phoneNumber);
+
+                System.out.println("Enter your passport number:");
+                //String passportNumber = "";
+                String passportNumber = in.nextLine();
+                passenger.setPassport(passportNumber);
+                System.out.println("Your passportNumber: " + passportNumber);
                 System.out.println("Do you want to purchase?\n 1-YES 0-NO");
-                int purch = in.nextInt();
+                int purch = Integer.parseInt(in.nextLine());
                 if (purch == 0)
                 {
                     return;
                 } else
                 {
-
+                    System.out.println("----------------------You are buying ticket now.----------------------");
                     flight = flightCollection.getFlightInfo(flight_id);
 
                     int airplane_id = flight.getAirplane().getAirplaneID();
@@ -146,12 +156,16 @@ public class TicketSystem {
                 System.out.println("Your bill: " + ticket.getPrice() + "\n");
 
                 System.out.println("Enter your card number:");
-                String cardNumber = "";
+                //String cardNumber = "";
+                String cardNumber = in.nextLine();
                 passenger.setCardNumber(cardNumber);
+                System.out.println("Your card number is:" + cardNumber);
 
                 System.out.println("Enter your security code:");
-                Integer securityCode = 0;
+                int securityCode = Integer.parseInt(in.nextLine());
+                //Integer securityCode = 0;
                 passenger.setSecurityCode(securityCode);
+                System.out.println("Security code confirm");
 
 
             } catch (PatternSyntaxException patternException)
