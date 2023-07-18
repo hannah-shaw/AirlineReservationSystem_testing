@@ -145,7 +145,7 @@ public class Flight {
         try {
             date = dateFormat.parse(dateStr);
         } catch (ParseException e) {
-            throw new IllegalArgumentException("This city name is invalid!");
+            throw new IllegalArgumentException("Time format error");
         }
         Timestamp timestamp;
         timestamp = new Timestamp(date.getTime());

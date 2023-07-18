@@ -164,7 +164,7 @@ class TicketSystemTest {
                 .thenReturn("22") //age
                 .thenReturn("Man")  // gender
                 .thenReturn("ginphy@gmail.com")  // email
-                .thenReturn("13290959072")  // phoneNumber
+                .thenReturn("0412345678")  // phoneNumber
                 .thenReturn("33414521")  // passportNumber
                 .thenReturn("1")
                 .thenReturn("0987198300912")

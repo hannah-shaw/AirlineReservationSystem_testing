@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Time;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
@@ -38,9 +39,10 @@ class FlightTest {
 
     @Test
     void testDateTimeFormat() {
-        assertThrows(IllegalArgumentException.class, () -> new Flight(2, "Melbourne", "Suzhou",
+        Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> new Flight(2, "Melbourne", "Suzhou",
                 "SM002", "China Airlines", "2023-07-05 00:00:00",
                 "06/07/2023 00:00:00", mockAirplane()));
+        Assertions.assertEquals("Time format error", exception1.getMessage());
 
     }
 
