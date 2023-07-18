@@ -43,6 +43,42 @@ public class TicketSystem {
             int ticket_id = in.nextInt();
             this.buyTicket(ticket_id);
         }
+        else
+        //in case there is no direct ticket from city1 to city2
+        {
+            //SELECT a flight where depart_to = city2
+
+            Flight depart_to = FlightCollection.getFlightInfo(city2);
+
+            //and search for city with depart_from as connector city
+
+            String connectCity = depart_to.getDepartFrom();
+
+            //SELECT * from flight where depart_to = '" + connectCity + "' and depart_from = '" + city1+"'"
+
+            Flight flightConnectingTwoCities = FlightCollection.getFlightInfo(city1, connectCity);
+
+            if(flightConnectingTwoCities != null){
+
+                System.out.println("There is special way to go there. And it is transfer way, like above. Way №" + counter);
+
+                idFirst = depart_to.getFlightID();
+
+                idSecond = flightConnectingTwoCities.getFlightID();
+
+
+            }
+
+            counter++;
+
+            buyTicket(idFirst, idSecond); //pass two tickets and buy them
+
+            if(counter == 1)
+            {
+                System.out.println("There is no possible variants.");
+            }
+            return;
+        }
     }
 
     public void showTicket()

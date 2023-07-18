@@ -157,6 +157,7 @@ class TicketSystemTest {
     @Test
     public void testValidateTicketInformation() throws Exception {
 
+
     }
     @Test
     public void testCorrectDisplayValue() throws Exception {
