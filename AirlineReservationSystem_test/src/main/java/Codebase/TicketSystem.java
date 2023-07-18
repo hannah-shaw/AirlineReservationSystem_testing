@@ -70,7 +70,7 @@ public class TicketSystem {
             throw new IllegalArgumentException("This ticket does not exist or has been booked.");
 //            System.out.println("This ticket does not exist or has been booked.");
         }else{
-            //select flight_id from ticket where ticke_id=" + ticket_id
+            //select flight_id from ticket where ticket_id=" + ticket_id
 
             flight_id = validTicket.getFlight().getFlightID();
 
@@ -108,7 +108,7 @@ public class TicketSystem {
                 //String email = "";
                 String email = in.nextLine();
                 passenger.setEmail(email);
-                System.out.println("Your eamil: " + email);
+                System.out.println("Your email: " + email);
 
 
                 System.out.println("Enter your phone number (+7):");
@@ -122,12 +122,13 @@ public class TicketSystem {
                 String passportNumber = in.nextLine();
                 passenger.setPassport(passportNumber);
                 System.out.println("Your passportNumber: " + passportNumber);
-                System.out.println("Do you want to purchase?\n 1-YES 0-NO");
+
+                System.out.println("Do you want to purchase? 1-YES 0-NO");
                 int purch = Integer.parseInt(in.nextLine());
                 if (purch == 0)
                 {
                     return;
-                } else
+                } else if (purch == 1)
                 {
                     System.out.println("----------------------You are buying ticket now.----------------------");
                     flight = flightCollection.getFlightInfo(flight_id);
@@ -153,6 +154,8 @@ public class TicketSystem {
                         airplane.setEconomySitsNumber(airplane.getEconomySitsNumber() - 1);
                     }
 
+                } else {
+                    throw new IllegalArgumentException("Error Input");
                 }
                 System.out.println("Your bill: " + ticket.getPrice() + "\n");
 
