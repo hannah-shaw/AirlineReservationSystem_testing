@@ -125,7 +125,33 @@ class TicketSystemTest {
                 .thenReturn("")
                 .thenReturn("2000");
         Exception e4 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        TicketCollection.getTickets().get(0).setTicketStatus(false);
         Assertions.assertTrue(e4.getMessage().contains("cardNumber cannot be empty"));
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("John") // firstName
+                .thenReturn("Doe") // secondName
+                .thenReturn("30") //age
+                .thenReturn("Man") // gender
+                .thenReturn("john.doe@gmail.com") // email
+                .thenReturn("0412345678") // phoneNumber
+                .thenReturn("123456789") // passportNumber
+                .thenReturn("-1");
+        Exception e5 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        TicketCollection.getTickets().get(0).setTicketStatus(false);
+        Assertions.assertTrue(e5.getMessage().contains("Error Input"));
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("John") // firstName
+                .thenReturn("Doe") // secondName
+                .thenReturn("30") //age
+                .thenReturn("Man") // gender
+                .thenReturn("john.doe@gmail.com") // email
+                .thenReturn("0412345678") // phoneNumber
+                .thenReturn("123456789") // passportNumber
+                .thenReturn("1")
+                .thenReturn("37789410971829")
+                .thenReturn("-1");
+        Exception e6 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e6.getMessage().contains("SecurityCode Format Error"));
     }
 
     @Test
