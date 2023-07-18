@@ -156,9 +156,25 @@ class TicketSystemTest {
 
     @Test
     public void testValidateTicketInformation() throws Exception {
-
-
+        Passenger DummyPassenger = new Passenger("Ginphy", "Yuen", 22, "Man", "ginphy@gmail.com", "0412345678", "33414521", "0987198300912", 2000);
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("Ginphy")  // firstName
+                .thenReturn("Yuen")  // secondName
+                .thenReturn("22") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("ginphy@gmail.com")  // email
+                .thenReturn("0412345678")  // phoneNumber
+                .thenReturn("33414521")  // passportNumber
+                .thenReturn("1")
+                .thenReturn("0987198300912")
+                .thenReturn("2000");
+        ticketSystem.buyTicket(1);
+        assertEquals("Ticket{" +'\n'+
+                "Price=" + 1120 + "KZT, " + '\n' +
+                FlightCollection.flights.get(0) +'\n'+ "Vip status=" + false + '\n' +
+                DummyPassenger+'\n'+ "Ticket was purchased=" + true + "\n}", ticketSystem.ticket.toString());
     }
+
     @Test
     public void testCorrectDisplayValue() throws Exception {
         Mockito.when(scannerMock.nextLine())
