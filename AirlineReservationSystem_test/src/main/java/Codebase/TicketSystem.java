@@ -244,7 +244,7 @@ public class TicketSystem {
                 {
                     return;
                 }
-                else
+                else if (purch == 1)
                 {
 
                     //  "select * from flight, airplane where flight_id=" + flight_id_first + " and flight.airplane_id=airplane.airplane_id");
@@ -310,6 +310,9 @@ public class TicketSystem {
                     Integer securityCode = 0;
                     passenger.setSecurityCode(securityCode);
 
+                }
+                else {
+                    throw new IllegalArgumentException("Error Input");
                 }
             } catch (PatternSyntaxException patternException)
             {
