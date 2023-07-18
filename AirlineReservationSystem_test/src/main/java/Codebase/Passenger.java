@@ -78,6 +78,9 @@ public class Passenger extends Person
     }
 
     public void setSecurityCode(int securityCode) {
+        if(securityCode <=0){
+            throw new IllegalArgumentException("SecurityCode Format Error");
+        }
         this.securityCode = securityCode;
     }
 

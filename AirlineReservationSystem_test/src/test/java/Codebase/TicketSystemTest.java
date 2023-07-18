@@ -23,16 +23,19 @@ class TicketSystemTest {
         scannerMock = Mockito.mock(Scanner.class);
         // Create a valid flight and ticket
         TicketCollection.tickets.clear();
-        Airplane airplane = new Airplane(5171, "Boeing747", 30, 130, 6);
-        Flight flight = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane);
+        Airplane airplane1 = new Airplane(5171, "Boeing747", 30, 130, 6);
+        Airplane airplane2 = new Airplane(3009, "MH370", 50, 100, 15);
+        Flight flight1 = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane1);
+        Flight flight2 = new Flight(10, "SUZHOU", "BEIJING", "7103", "EasternChina", "16/07/2023 05:35:00", "16/07/2023 15:15:00", airplane2);
         Passenger passenger = new Passenger();
         //Passenger passenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
-        Ticket ticket = new Ticket(1, 1000, flight, false, passenger);//passenger hasn't been set, the age return 0.
+        Ticket ticket = new Ticket(1, 1000, flight1, false, passenger);//passenger hasn't been set, the age return 0.
         TicketCollection.tickets.add(ticket);
-        FlightCollection.flights.add(flight);
+        FlightCollection.flights.add(flight1);
+        FlightCollection.flights.add(flight2);
         ticketSystem = new TicketSystem(ticketCollection, flightCollection,scannerMock);
     }
-    @Test//First try of test
+    @Test
     public final void ChooseTicketTestWithInvalidCity() {
         // Test choose city with invalid city name
         try {
@@ -44,7 +47,7 @@ class TicketSystemTest {
     }
 
     @Test
-    public final void ChooseTicketTicketWithInvalidFlight() {
+    public final void testValidateFlightInformation() {
         // Test choose ticket with NO exist flight
         try {
             ticketSystem.chooseTicket("SHANGHAI", "SUZHOU");
@@ -126,7 +129,25 @@ class TicketSystemTest {
     }
 
     @Test
-    public void testCorrectTicketInformation() throws Exception {
+    public void testValidateTicketInformation() throws Exception {
+
+    }
+    @Test
+    public void testCorrectDisplayValue() throws Exception {
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("Ginphy")  // firstName
+                .thenReturn("Yuen")  // secondName
+                .thenReturn("22") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("ginphy@gmail.com")  // email
+                .thenReturn("0412345678")  // phoneNumber
+                .thenReturn("33414521")  // passportNumber
+                .thenReturn("1")
+                .thenReturn("0987198300912")
+                .thenReturn("2000");
+        ticketSystem.buyTicket(1);
+        assertEquals(1120, ticketSystem.ticket.getPrice());
+
     }
 
 
