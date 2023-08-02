@@ -25,4 +25,21 @@
             <version>5.2.0</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.14.0</version>
+                <configuration>
+                    <targetClasses>
+                        <param>Codebase.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>Codebase.*</param>
+                    </targetTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
