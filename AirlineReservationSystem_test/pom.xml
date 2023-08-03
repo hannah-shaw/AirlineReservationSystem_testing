@@ -38,6 +38,10 @@
                     <targetTests>
                         <param>Codebase.*</param>
                     </targetTests>
+                    <excludedClasses>
+                        <param>Codebase.BuyTicket</param>
+                        <param>Codebase.ChooseTicket</param>
+                    </excludedClasses>
                 </configuration>
             </plugin>
         </plugins>

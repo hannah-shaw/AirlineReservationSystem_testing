@@ -68,15 +68,4 @@ public abstract class Person //abstract class Person
         }
         this.secondName = secondName;
     }
-
-    @Override
-    public String toString()
-    {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                '}';
-    }
 }

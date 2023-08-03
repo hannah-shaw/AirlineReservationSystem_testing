@@ -43,6 +43,12 @@ public class PassengerTest {
                 '}',passenger.toString());
     }
 
+    @Test
+    public void testConstructor() {
+        Passenger passenger = new Passenger();
+        assertNotNull(passenger);
+    }
+
 
     @Test
     public void testAllFieldsRequired() {
@@ -108,6 +114,12 @@ public class PassengerTest {
         });
         Assertions.assertEquals("Age should be positive", e1.getMessage());
 
+        e1 = assertThrows(IllegalArgumentException.class, () -> {
+            new Passenger("Maggie","Smith",0,"Woman",
+                    "123@gmail.com","0412345678","1234567","123456",123);
+        });
+        Assertions.assertEquals("Age should be positive", e1.getMessage());
+
     }
     @Test
     public void testCreatePassengerWithInvalidEmail() {
@@ -156,7 +168,34 @@ public class PassengerTest {
         });
         Assertions.assertEquals("Passport number should not be more than 9 characters long", e1.getMessage());
 
+        e1 = assertThrows(IllegalArgumentException.class, () -> {
+            new Passenger("Maggie","Smith",22,"Woman",
+                    "123@gmail.com","0512345678","1234567890","123456",123);
+        });
+        Assertions.assertEquals("Passport number should not be more than 9 characters long", e1.getMessage());
+
+        e1 = assertThrows(IllegalArgumentException.class, () -> {
+            new Passenger("Maggie","Smith",22,"Woman",
+                    "123@gmail.com","0512345678","12345678900","123456",123);
+        });
+        Assertions.assertEquals("Passport number should not be more than 9 characters long", e1.getMessage());
+
+
+        Passenger p = new Passenger("Maggie","Smith",22,"Woman",
+                    "123@gmail.com","0512345678","123456789","123456",123);
+
+        assertNotNull(p);
     }
+
+    @Test
+    public  void testSecurityCode(){
+        Throwable e1 = assertThrows(IllegalArgumentException.class, () -> {
+            new Passenger("Maggie","Smith",22,"Woman",
+                    "123@gmail.com","0512345678","123456","123456",0);
+        });
+        Assertions.assertEquals("SecurityCode Format Error", e1.getMessage());
+    }
+
 
 
 }
