@@ -20,22 +20,32 @@ public class Airplane
     private int crewSitsNumber;
     public static final List<Airplane> airplanes = new ArrayList<>();
 
+    public Airplane(){}
+
     public Airplane(int airplaneID, String airplaneModel, int businessSitsNumber, int economySitsNumber, int crewSitsNumber)
     {
-        this.setAirplaneID(airplaneID);
-        this.setAirplaneModel(airplaneModel);
-        this.validateSitsNumber(businessSitsNumber,economySitsNumber,crewSitsNumber);
+        this.airplaneID=airplaneID;
+        this.airplaneModel = airplaneModel;
         this.setBusinessSitsNumber(businessSitsNumber);
         this.setEconomySitsNumber(economySitsNumber);
         this.setCrewSitsNumber(crewSitsNumber);
-        airplanes.add(this);
+        if(checkAllPropertiesNotEmpty()){
+            airplanes.add(this);
+        }
+        else{
+            throw new IllegalArgumentException("Require all field");
+        }
+    }
+
+    public boolean checkAllPropertiesNotEmpty() {
+        return airplaneID != 0 && airplaneModel != null && businessSitsNumber != 0 &&
+                economySitsNumber != 0 && crewSitsNumber != 0;
     }
 
     //Requirement: Seat number must be in the range [1, 300].
     public void validateSitsNumber(int businessSitsNumber, int economySitsNumber,int crewSitsNumber){
         int total = businessSitsNumber + economySitsNumber + crewSitsNumber;
-        if(total>300 || total<1)
-        {
+        if(total>300 || total<1) {
             throw new IllegalArgumentException("Seat number must be in the range [1, 300].");
         }
     }
@@ -61,8 +71,7 @@ public class Airplane
     }
 
     public void setBusinessSitsNumber(int businessSitsNumber) {
-        if(businessSitsNumber<0)
-        {
+        if(businessSitsNumber<0) {
             throw new IllegalArgumentException("Seat number must be positive.");
         }
         this.validateSitsNumber(businessSitsNumber,this.economySitsNumber,this.crewSitsNumber);
@@ -74,8 +83,7 @@ public class Airplane
     }
 
     public void setEconomySitsNumber(int economySitsNumber) {
-        if(economySitsNumber<0)
-        {
+        if(economySitsNumber<0) {
             throw new IllegalArgumentException("Seat number must be positive.");
         }
         this.validateSitsNumber(this.businessSitsNumber,economySitsNumber,this.crewSitsNumber);
@@ -87,16 +95,14 @@ public class Airplane
     }
 
     public void setCrewSitsNumber(int crewSitsNumber) {
-        if(crewSitsNumber<0)
-        {
+        if(crewSitsNumber<0) {
             throw new IllegalArgumentException("Seat number must be positive.");
         }
         this.validateSitsNumber(this.businessSitsNumber,this.economySitsNumber,crewSitsNumber);
         this.crewSitsNumber = crewSitsNumber;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "Airplane{" +
                 "model=" + getAirplaneModel() + '\'' +
                 ", business sits=" + getBusinessSitsNumber() + '\'' +
@@ -107,16 +113,12 @@ public class Airplane
 
 	public static Airplane getAirPlaneInfo(int airplane_id) {
         Airplane airplane = null;
-
         for (Airplane a : airplanes) {
             if (a.getAirplaneID() == airplane_id) {
                 airplane = a;
-                break;
+                return airplane;
             }
         }
-        if (airplane == null){
-            System.out.println("can't found");
-        }
-        return airplane;
+        throw new RuntimeException("No such airplane exists.");
 	}
 }
