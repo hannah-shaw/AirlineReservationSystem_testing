@@ -36,6 +36,14 @@ public class Flight {
         this.setCode(code);
         this.setCompany(company);
         this.setAirplane(airplane);
+        if(!this.checkAllPropertiesNotEmpty()){
+            throw new IllegalArgumentException("All info cannot be empty");
+        }
+    }
+
+    public boolean checkAllPropertiesNotEmpty() {
+        return flightID != 0 && departTo != null && departFrom != null && code != null &&
+                company != null && dateFrom != null && dateTo != null && airplane != null;
     }
 
     public int getFlightID() {
@@ -126,18 +134,6 @@ public class Flight {
         return airplane;
     }
 
-    public String toString()
-    {
-            return "Flight{" + airplane.toString() +
-                    ", date to=" +  getDateTo() + ", " + '\'' +
-                    ", date from='" + getDateFrom() + '\'' +
-                    ", depart from='" + getDepartFrom() + '\'' +
-                    ", depart to='" + getDepartTo() + '\'' +
-                    ", id=" + getFlightID() + '\'' +
-                    ", company=" + getCompany() + '\'' +
-                    ", code=" + getCode() + '\'' +
-                    '}';
-    }
 
     public static Timestamp stringToTimestamp(String dateStr){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
