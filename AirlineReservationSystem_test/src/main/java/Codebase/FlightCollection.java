@@ -46,7 +46,6 @@ public class FlightCollection {
 		if (!city1.matches("^[a-zA-Z\\s]+$")||!city2.matches("^[a-zA-Z\\s]+$"))
 			throw new IllegalArgumentException("City name can only contain letter and space");
 		for (Flight flight : flights) {
-			System.out.print(flight);
 			if(flight.getDepartFrom().equals(city1) && flight.getDepartTo().equals(city2)){
 				return flight;
 			}

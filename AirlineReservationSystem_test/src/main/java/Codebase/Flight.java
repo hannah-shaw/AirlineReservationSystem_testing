@@ -28,7 +28,7 @@ public class Flight {
     public Flight(){}
 
     public Flight(int flight_id, String departTo, String departFrom, String code, String company, String dateFrom,String dateTo, Airplane airplane) {
-        this.setFlightID(flight_id);
+        flightID = flight_id;
         this.setDateFrom(dateFrom);
         this.setDateTo(dateTo);
         this.setDepartFrom(departFrom);

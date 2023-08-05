@@ -117,6 +117,12 @@ class FlightCollectionTest {
 
         Throwable exception4 = assertThrows(RuntimeException.class, () -> f.getFlightInfo("Suzhou","Nanjing"));
         Assertions.assertEquals("No such flight exists", exception4.getMessage());
+
+        Throwable exception5 = assertThrows(IllegalArgumentException.class, () -> f.getFlightInfo(null,null));
+        Assertions.assertEquals("City name cannot be null", exception5.getMessage());
+
+        Throwable exception6 = assertThrows(RuntimeException.class, () -> f.getFlightInfo("Taipei"));
+        Assertions.assertEquals("No such flight exists", exception6.getMessage());
     }
 
     @Test

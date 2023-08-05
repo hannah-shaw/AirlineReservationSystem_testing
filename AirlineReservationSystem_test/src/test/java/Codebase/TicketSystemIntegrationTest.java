@@ -92,19 +92,16 @@
 
 package Codebase;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import java.util.Arrays;
+
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class TicketSystemIntegrationTest {
 
@@ -119,7 +116,6 @@ class TicketSystemIntegrationTest {
     TicketCollection DummyTicketCollection;
     TicketSystem ticketSystem;
     Scanner scannerMock;
-    BuyTicket buyTicket;
 
 
     @BeforeEach
@@ -170,8 +166,7 @@ class TicketSystemIntegrationTest {
             TicketCollection.tickets.add(new Ticket(1, 1000, NullFlight, false, DummyPassenger));
             String input = String.format("Jinhui\nYuan\n24\nMan\njinhyuan@monash.com\n13290959072\nCN\n1\n123456\n123");
             System.setIn(new ByteArrayInputStream(input.getBytes()));
-            buyTicket = new BuyTicket();
-            buyTicket.buyTicket(1);
+            ticketSystem.buyTicket(1);
         });
         assertEquals("Invalid flight input", e.getMessage());
     }
@@ -183,8 +178,7 @@ class TicketSystemIntegrationTest {
             TicketCollection.tickets.add(new Ticket(1, 1000, DummyFlight, false, NullPassenger));
             String input = String.format("Jinhui\nYuan\n24\nMan\njinhyuan@monash.com\n13290959072\nCN\n1\n123456\n123");
             System.setIn(new ByteArrayInputStream(input.getBytes()));
-            buyTicket = new BuyTicket();
-            buyTicket.buyTicket(1);
+            ticketSystem.buyTicket(1);
         });
         assertEquals("Invalid passenger input", e.getMessage());
     }

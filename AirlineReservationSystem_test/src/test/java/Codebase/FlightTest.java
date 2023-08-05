@@ -196,5 +196,10 @@ class FlightTest {
                 "SM008", "China Airlines", "05/07/2023 00:00:00",
                 "06/07/2023 00:00:00", null));
         Assertions.assertEquals("airplane cannot be empty", exception7.getMessage());
+        Throwable exception8 = assertThrows(IllegalArgumentException.class, () -> new Flight(0, "Beijing", "Suzhou",
+                "SM008", "China Airlines", "05/07/2023 00:00:00",
+                "06/07/2023 00:00:00", mockAirplane()));
+        Assertions.assertEquals("All info cannot be empty", exception8.getMessage());
+
     }
 }
