@@ -20,7 +20,7 @@ public class TicketCollection {
 				else {
 					ticketTempList.add(tempTicket.getTicket_id());
 					for (Ticket existingTicket : tickets) {
-						if (existingTicket.getTicket_id() == tempTicket.getTicket_id())
+						if ((existingTicket.getTicket_id() == tempTicket.getTicket_id()))
 							throw new IllegalArgumentException( "ID:" + tempTicket.getTicket_id() + " ticket is already exist");
 					}
 				}

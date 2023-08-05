@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TicketCollectionTest {
 
@@ -64,7 +65,7 @@ public class TicketCollectionTest {
         }
     }
     @Test
-    public void testAddTicketExist() {
+    public void testAddTicketTwice() {
         try {
             ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
             Ticket ticket3 = new Ticket(3, 1000, flight, false, passenger);
@@ -75,6 +76,33 @@ public class TicketCollectionTest {
         } catch (Exception exception1) {
             Assertions.assertEquals("ID:3 ticket was add twice", exception1.getMessage());
         }
+    }
+
+    // ------------------
+    // Add this test case to up Line Coverage
+    // ------------------
+    @Test
+    public void testAddTicketExist() {
+        // ------------------
+        // Edit the test method to address PIT negative condition mutation here
+        // ------------------
+//        try {
+//            ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
+//            Ticket ticket5 = new Ticket(5, 1000, flight, false, passenger);
+//            ticketsToBeAdded.add(ticket5);
+//            TicketCollection.addTickets(ticketsToBeAdded);
+//            TicketCollection.addTickets(ticketsToBeAdded);
+//        } catch (Exception exception2) {
+//            Assertions.assertEquals("ID:5 ticket is already exist", exception2.getMessage());
+//        }
+        ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
+        Ticket ticket5 = new Ticket(5, 1000, flight, false, passenger);
+        ticketsToBeAdded.add(ticket5);
+        TicketCollection.addTickets(ticketsToBeAdded);
+        Throwable e2 = assertThrows(IllegalArgumentException.class, () -> {
+            TicketCollection.addTickets(ticketsToBeAdded);
+        });
+        Assertions.assertEquals("ID:5 ticket is already exist", e2.getMessage());
     }
 
     @Test
