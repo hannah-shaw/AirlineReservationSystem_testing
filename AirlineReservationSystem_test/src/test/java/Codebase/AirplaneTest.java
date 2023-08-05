@@ -15,13 +15,13 @@ import static org.mockito.Mockito.when;
  * @date 2023-08-02
  */
 
-class AirplaneTest {
+public class AirplaneTest {
 
     Airplane airplane;
     Airplane airplane1, airplane2;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         airplane = new Airplane(1, "Boeing 737",
                 50, 50, 50);
 
@@ -29,7 +29,7 @@ class AirplaneTest {
     }
 
     @Test
-    void testGetAirplaneID() {
+    public void testGetAirplaneID() {
         assertEquals(1, airplane.getAirplaneID());
 
         int expectedAirplaneID = 123;
@@ -39,7 +39,7 @@ class AirplaneTest {
     }
 
     @Test
-    void testSetAirplaneID() {
+    public void testSetAirplaneID() {
         airplane.setAirplaneID(2);
         assertEquals(2, airplane.getAirplaneID());
 
@@ -49,29 +49,29 @@ class AirplaneTest {
     }
 
     @Test
-    void testAirplaneIDReturn0() {
+    public void testAirplaneIDReturn0() {
         airplane.setAirplaneID(0);
         Assertions.assertEquals(0, airplane.getAirplaneID());
     }
 
     @Test
-    void testGetAirplaneModel() {
+    public void testGetAirplaneModel() {
         assertEquals("Boeing 737", airplane.getAirplaneModel());
     }
 
     @Test
-    void testSetAirplaneModel() {
+    public void testSetAirplaneModel() {
         airplane.setAirplaneModel("Boeing 777");
         assertEquals("Boeing 777", airplane.getAirplaneModel());
     }
 
     @Test
-    void testGetBusinessSitsNumber() {
+    public void testGetBusinessSitsNumber() {
         assertEquals(50, airplane.getBusinessSitsNumber());
     }
 
     @Test
-    void testSetBusinessSitsNumber() {
+    public void testSetBusinessSitsNumber() {
         Throwable e;
         airplane.setBusinessSitsNumber(18);
         assertEquals(18, airplane.getBusinessSitsNumber());
@@ -95,12 +95,12 @@ class AirplaneTest {
     }
 
     @Test
-    void testGetEconomySitsNumber() {
+    public void testGetEconomySitsNumber() {
         assertEquals(50, airplane.getEconomySitsNumber());
     }
 
     @Test
-    void testSetEconomySitsNumber() {
+    public void testSetEconomySitsNumber() {
         airplane.setEconomySitsNumber(200);
         assertEquals(200, airplane.getEconomySitsNumber());
         airplane.setEconomySitsNumber(0);
@@ -110,12 +110,12 @@ class AirplaneTest {
     }
 
     @Test
-    void testGetCrewSitsNumber() {
+    public void testGetCrewSitsNumber() {
         assertEquals(50, airplane.getCrewSitsNumber());
     }
 
     @Test
-    void testSetCrewSitsNumber() {
+    public void testSetCrewSitsNumber() {
         airplane.setCrewSitsNumber(4);
         assertEquals(4, airplane.getCrewSitsNumber());
         airplane.setCrewSitsNumber(0);
@@ -126,7 +126,7 @@ class AirplaneTest {
         Assertions.assertEquals("Seat number must be positive.",e.getMessage());
     }
     @Test
-    void testSetNegativeSitsNumber() {
+    public void testSetNegativeSitsNumber() {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             airplane.setBusinessSitsNumber(-1);
         });
@@ -134,7 +134,7 @@ class AirplaneTest {
     }
 
     @Test
-    void testOutRangeNumber(){
+    public void testOutRangeNumber(){
         Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> {
             airplane = new Airplane(1, "Boeing 737",
                     100, 100, 101);
@@ -192,17 +192,19 @@ class AirplaneTest {
     }
 
     @Test
-    void testToString() {
+    public void testToString() {
+        setUp();
         assertEquals("Airplane{" +
                 "model=" + "Boeing 737" + '\'' +
                 ", business sits=" + "50" + '\'' +
                 ", economy sits=" + "50" + '\'' +
                 ", crew sits=" + "50" + '\'' +
                 '}', airplane.toString());
+
     }
 
     @Test
-    void testGetAirPlaneInfo() {
+    public void testGetAirPlaneInfo() {
         Airplane ap1 = Airplane.getAirPlaneInfo(1);
         assertEquals("Airplane{" +
                 "model=" + "Boeing 737" + '\'' +

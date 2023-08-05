@@ -20,6 +20,8 @@ class FlightCollectionTest {
     ArrayList<Flight> flights;
     Flight flight1,flight2;
 
+    FlightCollection f;
+
     private Airplane mockAirplane() {
         Airplane airplane = new Airplane(001, "Boeing 737",
                 12, 147, 5);
@@ -41,32 +43,34 @@ class FlightCollectionTest {
                 "China Airlines", "15/02/2023 20:15:00", "16/02/2023 10:19:00", mockAirplane());
         flights.add(flight1);
         flights.add(flight2);
+        f = new FlightCollection();
+        f.flights = new ArrayList<>();
     }
     @AfterEach
     void afterEach(){
-        FlightCollection.flights.clear();
+        f.flights.clear();
     }
 
     @Test
     void testIsCityNameValid(){
-        boolean result = FlightCollection.validateCity("123456");
+        boolean result = f.validateCity("123456");
         assertFalse(result);
-        boolean result1 = FlightCollection.validateCity("!@#");
+        boolean result1 = f.validateCity("!@#");
         assertFalse(result1);
-        boolean result3 = FlightCollection.validateCity("Paris");
+        boolean result3 = f.validateCity("Paris");
         assertTrue(result3);
-        boolean result4 = FlightCollection.validateCity("Fuzhou");
+        boolean result4 = f.validateCity("Fuzhou");
         assertTrue(result4);
-        boolean result5 = FlightCollection.validateCity("Fuzhou//?");
+        boolean result5 = f.validateCity("Fuzhou//?");
         assertFalse(result5);
-        boolean result6 = FlightCollection.validateCity("1/Nanjing_");
+        boolean result6 = f.validateCity("1/Nanjing_");
         assertFalse(result6);
     }
 
     @Test
     void testAddFlights(){
-        FlightCollection.addFlights(flights);
-        Assertions.assertEquals(2, FlightCollection.getFlights().size());
+        f.addFlights(flights);
+        Assertions.assertEquals(2, f.getFlights().size());
     }
 
     @Test
@@ -76,7 +80,7 @@ class FlightCollectionTest {
                 "China Airlines", "05/07/2023 00:00:00","16/06/2023 19:45:00",  mockAirplane());
         flights.add(flight1);
         Throwable exception = assertThrows(RuntimeException.class, () -> {
-            FlightCollection.addFlights(flights);
+            f.addFlights(flights);
         });
         Assertions.assertEquals("The city name is invalid", exception.getMessage());
     }
@@ -89,7 +93,7 @@ class FlightCollectionTest {
                 "China Airlines", "05/07/2023 00:00:00","16/06/2023 19:45:00",  mockAirplane());
 
         Throwable exception = assertThrows(RuntimeException.class, () -> {
-            FlightCollection.addFlight(flight1);
+            f.addFlight(flight1);
         });
         Assertions.assertEquals("3 is already existing", exception.getMessage());
     }
@@ -99,29 +103,29 @@ class FlightCollectionTest {
     void testGetFlightInfoByCity(){
         testAddFlights();
 
-        Assertions.assertEquals(flight1, FlightCollection.getFlightInfo("Suzhou", "Beijing"));
-        Assertions.assertEquals(flight2, FlightCollection.getFlightInfo("London"));
+        Assertions.assertEquals(flight1, f.getFlightInfo("Suzhou", "Beijing"));
+        Assertions.assertEquals(flight2, f.getFlightInfo("London"));
 
-        Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> FlightCollection.getFlightInfo(null));
+        Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> f.getFlightInfo(null));
         Assertions.assertEquals("City name cannot be null", exception1.getMessage());
 
-        Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> FlightCollection.getFlightInfo("123Beijing"));
+        Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> f.getFlightInfo("123Beijing"));
         Assertions.assertEquals("City name can only contain letter and space", exception2.getMessage());
 
-        Throwable exception3 = assertThrows(IllegalArgumentException.class, () -> FlightCollection.getFlightInfo("Suzhou","Shanghai101"));
+        Throwable exception3 = assertThrows(IllegalArgumentException.class, () -> f.getFlightInfo("Suzhou","Shanghai101"));
         Assertions.assertEquals("City name can only contain letter and space", exception3.getMessage());
 
-        Throwable exception4 = assertThrows(RuntimeException.class, () -> FlightCollection.getFlightInfo("Suzhou","Nanjing"));
+        Throwable exception4 = assertThrows(RuntimeException.class, () -> f.getFlightInfo("Suzhou","Nanjing"));
         Assertions.assertEquals("No such flight exists", exception4.getMessage());
     }
 
     @Test
     void testGetFlightInfoById() {
         testAddFlights();
-        Assertions.assertEquals(flight1, FlightCollection.getFlightInfo(3));
-        Assertions.assertEquals(flight2, FlightCollection.getFlightInfo(4));
+        Assertions.assertEquals(flight1, f.getFlightInfo(3));
+        Assertions.assertEquals(flight2, f.getFlightInfo(4));
 
-        Throwable exception1 = assertThrows(RuntimeException.class, () -> FlightCollection.getFlightInfo(1));
+        Throwable exception1 = assertThrows(RuntimeException.class, () -> f.getFlightInfo(1));
         Assertions.assertEquals(("No such flight exists"), exception1.getMessage());
     }
 
@@ -130,7 +134,7 @@ class FlightCollectionTest {
     void testAddExistFlight() {
         // Add the flight2 twice
         flights.add(flight2);
-        Throwable exception1 = assertThrows(RuntimeException.class, () -> FlightCollection.addFlights(flights));
+        Throwable exception1 = assertThrows(RuntimeException.class, () -> f.addFlights(flights));
         Assertions.assertEquals(("4 is already existing"), exception1.getMessage());
     }
 
