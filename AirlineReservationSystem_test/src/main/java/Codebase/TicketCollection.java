@@ -31,13 +31,16 @@ public class TicketCollection {
 		}
 		TicketCollection.tickets.addAll(tickets_db);
 	}
-	
-	public static ArrayList<Ticket> getAllTickets() {
-    	//display all available tickets from the Ticket collection
-		for (Ticket ticket : tickets){
-			System.out.println(ticket.toString()+"\n");
+
+	public static void getAllTickets() {
+		if(tickets.size() != 0){
+			for (Ticket ticket : tickets){
+				//System.out.println(ticket.toString()+"\n");
+			}
 		}
-		return getTickets();
+    	//display all available tickets from the Ticket collection
+		else
+			throw new IllegalArgumentException( "There is no ticket in the system.");
     }
 	public static Ticket getTicketInfo(int ticket_id) {
     	//SELECT a ticket where ticket id = ticket_id

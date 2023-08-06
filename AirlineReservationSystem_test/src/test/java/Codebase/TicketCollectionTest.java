@@ -39,17 +39,33 @@ public class TicketCollectionTest {
         }
         TicketCollection.addTickets(ticketsToBeAdded);
         assertEquals(ticketsToBeAdded, ticketCollection.getTickets());
+        //Changes to be made, test getalltickets()
+        TicketCollection.tickets.clear();
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> TicketCollection.getAllTickets()
+        );
+        Assertions.assertEquals("There is no ticket in the system.", thrown.getMessage());
+
     }
     @Test
     public void testAddTickets() {
         ArrayList<Ticket> ticketsToBeAdded = new ArrayList<>();
         Ticket ticket2 = new Ticket(); // Assume Ticket has a no-arg constructor
         ticketsToBeAdded.add(ticket2);
-
         ticketCollection.addTickets(ticketsToBeAdded);
-
         // Check that tickets were added correctly
         assertTrue(ticketCollection.tickets.contains(ticket2));
+        // Changes to be made
+        ticketsToBeAdded.clear();
+        Ticket nullticket = new Ticket();
+        nullticket = null;
+        ticketsToBeAdded.add(nullticket);
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> TicketCollection.addTickets(ticketsToBeAdded)
+        );
+        Assertions.assertEquals("Invalid null ticket in list", thrown.getMessage());
     }
 
     @Test

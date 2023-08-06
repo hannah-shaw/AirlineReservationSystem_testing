@@ -46,6 +46,9 @@ class TicketTest {
     public void testSetandGetClassVip(){
         ticket.setClassVip(true);
         assertTrue(ticket.getClassVip());
+        // no false test
+        ticket.setClassVip(false);
+        assertFalse(ticket.getClassVip());
     }
 
     @Test
@@ -59,6 +62,10 @@ class TicketTest {
     {
         ticket.setTicketStatus(true);
         assertEquals(true, ticket.getTicketStatus());
+
+        // no false test
+        ticket.setTicketStatus(false);
+        assertFalse(ticket.ticketStatus());
     }
 
     @Test
@@ -78,13 +85,38 @@ class TicketTest {
 
     @Test
     void testDiscountByAge() {
+
         passenger.setAge(10);
         ticket.setPrice(1000);
         assertEquals(500, ticket.getPrice());
 
+        passenger.setAge(14); // boundary value
+        ticket.setPrice(1000);
+        assertEquals(500, ticket.getPrice());
+        passenger.setAge(15); // boundary value
+        ticket.setPrice(1000);
+        assertEquals(1000, ticket.getPrice());
+
+        passenger.setAge(59); // boundary value
+        ticket.setPrice(1000);
+        assertEquals(1000, ticket.getPrice());
+
+        passenger.setAge(30);
+        ticket.setPrice(1000);
+        assertEquals(1000, ticket.getPrice());
+
+        passenger.setAge(60); // boundary value
+        ticket.setPrice(1000);
+        assertEquals(0, ticket.getPrice());
+
         passenger.setAge(70);
         ticket.setPrice(1000);
         assertEquals(0, ticket.getPrice());
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            passenger.setAge(0);
+        });
+        assertEquals("Age should be positive", exception.getMessage());
     }
 
     @Test

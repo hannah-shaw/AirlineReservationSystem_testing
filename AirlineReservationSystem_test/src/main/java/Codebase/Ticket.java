@@ -10,18 +10,14 @@ public class Ticket
 
     public Ticket(int ticket_id, int price, Flight flight, boolean classVip, Passenger passenger)
     {
-        //this.passenger=passenger;
+        this.passenger=passenger;
         this.setPassenger(passenger);
-        //this.flight = flight;
+        this.flight = flight;
         this.setFlight(flight);
-        //this.classVip = classVip;
-        this.setClassVip(classVip);
-        //this.status = false;
-        this.setTicketStatus(status);
-        //this.ticket_id=ticket_id;
-        this.setTicket_id(ticket_id);
+        this.classVip = classVip;
+        this.status = false;
+        this.ticket_id=ticket_id;
         this.price = price;
-        this.setPrice(price);
 
 
     }
@@ -55,19 +51,15 @@ public class Ticket
         isValidPrice();
     }
 
-    public void saleByAge(int age)
-    {
+    public void saleByAge(int age) {
         int price = getPrice();
-        if(age == 0)
+        if (age < 15) {
+            price -= (int) price * 0.5; //50% sale for children under 15
             this.price = price;
-        if(age < 15 && age > 0)
-        {
-            price-=(int)price*0.5;//50% sale for children under 15
-            this.price=price;
-
-        } else if(age>=60){
-            this.price=0; //100% sale for elder people
-        }
+        } else if (age >= 60) {
+            this.price = 0; //100% sale for elder people
+        } else
+            this.price = price;
     }
 
     public Flight getFlight() {

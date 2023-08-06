@@ -257,8 +257,7 @@ public class TicketSystem {
                 passenger.setSecondName(secondName); //setting passengers info
 
                 System.out.println("Enter your age:");
-                Integer age = 0;
-                in.nextLine();
+                int age = Integer.parseInt(in.nextLine());
                 passenger.setAge(age);
 
                 System.out.println("Enter your gender: ");
