@@ -65,6 +65,9 @@ public class Flight {
         if (departTo == null || departTo == "") {
             throw new IllegalArgumentException("the Depart to destination cannot be empty");
         }
+        if (departTo.equals(departFrom)) {
+            throw new IllegalArgumentException("Departure and Destination cities cannot be the same");
+        }
         this.departTo = departTo;
     }
 
@@ -119,6 +122,9 @@ public class Flight {
     public void setDateTo(String dateTo){
         if (dateTo == null || dateTo == "") {
             throw new IllegalArgumentException("Date To cannot be empty");
+        }
+        if(stringToTimestamp(dateTo).compareTo(dateFrom) <= 0){
+            throw new IllegalArgumentException("The dateFrom must before time of dateTo");
         }
         this.dateTo = Flight.stringToTimestamp(dateTo);
     }

@@ -79,6 +79,8 @@ class FlightTest {
         Assertions.assertEquals("Beijing",flight.getDepartTo());
         Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> flight.setDepartTo(null));
         Assertions.assertEquals("the Depart to destination cannot be empty", exception1.getMessage());
+        Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> flight.setDepartTo("Suzhou"));
+        Assertions.assertEquals("Departure and Destination cities cannot be the same", exception2.getMessage());
 
     }
 
@@ -118,6 +120,8 @@ class FlightTest {
         Assertions.assertEquals(stringToTimestamp("16/07/2023 01:35:01"),flight.getDateTo());
         Throwable exception1 = assertThrows(IllegalArgumentException.class, () -> flight.setDateTo(null));
         Assertions.assertEquals("Date To cannot be empty", exception1.getMessage());
+        Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> flight.setDateTo("05/07/2023 13:55:00"));
+        Assertions.assertEquals("The dateFrom must before time of dateTo", exception2.getMessage());
 
     }
 
