@@ -36,6 +36,17 @@ class TicketSystemTest {
         ticketSystem = new TicketSystem(ticketCollection, flightCollection,scannerMock);
     }
     @Test
+    public final void ChooseTicketTestWithEmptyCity() {
+        // Test choose city with invalid city name
+        try {
+            ticketSystem.chooseTicket("", "");
+        }
+        catch (Exception e1) {
+            Assertions.assertEquals("City name cannot miss", e1.getMessage());
+        }
+    }
+
+    @Test
     public final void ChooseTicketTestWithInvalidCity() {
         // Test choose city with invalid city name
         try {
