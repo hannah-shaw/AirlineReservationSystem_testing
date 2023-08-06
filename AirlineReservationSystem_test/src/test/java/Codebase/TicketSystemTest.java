@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.zip.ZipEntry;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,12 +32,40 @@ class TicketSystemTest {
         //Passenger passenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
         Ticket ticket = new Ticket(1, 1000, flight1, false, passenger);//passenger hasn't been set, the age return default age:18.
         Ticket ticket2 = new Ticket(2, 1200, flight2, false, passenger);//passenger hasn't been set, the age return default age:18.
+        Ticket ticket_Transfer1 = new Ticket(3, 1200, flight1, false, passenger);
+        Ticket ticket_Transfer2 = new Ticket(4, 1200, flight2, false, passenger);
         TicketCollection.tickets.add(ticket);
         TicketCollection.tickets.add(ticket2);
+        TicketCollection.tickets.add(ticket_Transfer1);
+        TicketCollection.tickets.add(ticket_Transfer2);
         FlightCollection.flights.add(flight1);
         FlightCollection.flights.add(flight2);
         ticketSystem = new TicketSystem(ticketCollection, flightCollection,scannerMock);
     }
+
+    @Test
+    public final void BuyTicketTestWithTransfer() {
+        // Test choose city with invalid city name
+        try {
+            when(scannerMock.nextInt()).thenReturn(3,4);
+            Mockito.when(scannerMock.nextLine())
+                    .thenReturn("Ginphy")  // firstName
+                    .thenReturn("Yuen")  // secondName
+                    .thenReturn("22") //age
+                    .thenReturn("Man")  // gender
+                    .thenReturn("ginphy@gmail.com")  // email
+                    .thenReturn("0412345678")  // phoneNumber
+                    .thenReturn("33414521")  // passportNumber
+                    .thenReturn("1")
+                    .thenReturn("0987198300912")
+                    .thenReturn("2000");
+            ticketSystem.chooseTicket("BEIJING", "SHANGHAI");
+        }
+        catch (Exception e1) {
+            Assertions.assertEquals("City name cannot miss", e1.getMessage());
+        }
+    }
+
     @Test
     public final void ChooseTicketTestWithValidandInvalidCity() {
         // Test choose city with invalid city name
@@ -58,7 +87,7 @@ class TicketSystemTest {
     public final void testValidateFlightInformation() {
         // Test choose ticket with NO exist flight
         try {
-            ticketSystem.chooseTicket("SHANGHAI", "SUZHOU");
+            ticketSystem.chooseTicket("SHANGHAI", "HEFEI");
         }
         catch (Exception e2) {
             Assertions.assertEquals("No such flight exists", e2.getMessage());
@@ -80,8 +109,8 @@ class TicketSystemTest {
         TicketCollection.tickets.get(0).setTicketStatus(true);
         System.out.println(TicketCollection.tickets.toString());
 
-        when(scannerMock.nextInt()).thenReturn(3);
-        Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(3));
+        when(scannerMock.nextInt()).thenReturn(100);
+        Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(100));
         Assertions.assertTrue(e.getMessage().contains("This ticket does not exist or has been booked."));
     }
     @Test

@@ -50,7 +50,12 @@ public class FlightCollection {
 				return flight;
 			}
 		}
-		throw new RuntimeException("No such flight exists");
+		// ------------
+		// Replace throwing exception by returning null,
+		// so that the TicketSystem can do further search on connecting flights
+		// ------------
+		return null;
+		//throw new RuntimeException("No such flight exists");
     }
     
     public static Flight getFlightInfo(String city) {
