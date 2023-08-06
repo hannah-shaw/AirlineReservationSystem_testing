@@ -28,16 +28,22 @@ class TicketSystemTest {
         Airplane airplane2 = new Airplane(3009, "MH370", 50, 100, 15);
         Flight flight1 = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane1);
         Flight flight2 = new Flight(20, "SUZHOU", "BEIJING", "7103", "EasternChina", "16/07/2023 05:35:00", "16/07/2023 15:15:00", airplane2);
+        Flight flight3 = new Flight(10, "SUZHOU", "SHANGHAI", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane1);
+        Flight flight4 = new Flight(20, "BEIJING", "SUZHOU", "7103", "EasternChina", "16/07/2023 05:35:00", "16/07/2023 15:15:00", airplane2);
         Passenger passenger = new Passenger();
         //Passenger passenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
         Ticket ticket = new Ticket(1, 1000, flight1, false, passenger);//passenger hasn't been set, the age return default age:18.
         Ticket ticket2 = new Ticket(2, 1200, flight2, false, passenger);//passenger hasn't been set, the age return default age:18.
         Ticket ticket_Transfer1 = new Ticket(3, 1200, flight1, false, passenger);
         Ticket ticket_Transfer2 = new Ticket(4, 1200, flight2, false, passenger);
+        Ticket ticket_Transfer3 = new Ticket(5, 1200, flight3, true, passenger);
+        Ticket ticket_Transfer4 = new Ticket(6, 1200, flight4, true, passenger);
         TicketCollection.tickets.add(ticket);
         TicketCollection.tickets.add(ticket2);
         TicketCollection.tickets.add(ticket_Transfer1);
         TicketCollection.tickets.add(ticket_Transfer2);
+        TicketCollection.tickets.add(ticket_Transfer3);
+        TicketCollection.tickets.add(ticket_Transfer4);
         FlightCollection.flights.add(flight1);
         FlightCollection.flights.add(flight2);
         ticketSystem = new TicketSystem(ticketCollection, flightCollection,scannerMock);
@@ -46,13 +52,13 @@ class TicketSystemTest {
     @Test
     public final void buyTicketWithNoExist() {
         Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> {
-            ticketSystem.buyTicket(1,5);
+            ticketSystem.buyTicket(1,9);
         });
         Assertions.assertEquals("This ticket does not exist or has been booked.", exception2.getMessage());
     }
 
     @Test
-    public final void BuyTicketTestWithTransfer() {
+    public final void BuyTicketTestWithTransfer1() {
         Passenger DummyPassenger = new Passenger("Ginphy", "Yuen", 22, "Man", "ginphy@gmail.com", "0412345678", "33414521", "0987198300912", 2000);
         // Test choose city with invalid city name
         when(scannerMock.nextInt()).thenReturn(3,4);
@@ -82,10 +88,39 @@ class TicketSystemTest {
                 DummyPassenger+'\n'+ "Ticket was purchased=" + true + "\n}", ticketSystem.ticket.toString());
         assertEquals(1344,TicketCollection.tickets.get(2).getPrice());
         assertEquals(1344,TicketCollection.tickets.get(3).getPrice());
-        assertEquals(126,TicketCollection.tickets.get(2).getFlight().getAirplane().getEconomySitsNumber());
-        assertEquals(126,TicketCollection.tickets.get(3).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals(125,TicketCollection.tickets.get(2).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals(125,TicketCollection.tickets.get(3).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals(29,TicketCollection.tickets.get(2).getFlight().getAirplane().getBusinessSitsNumber());
+        assertEquals(29,TicketCollection.tickets.get(3).getFlight().getAirplane().getBusinessSitsNumber());
         assertEquals("0987198300912",TicketCollection.tickets.get(2).getPassenger().getCardNumber());
         assertEquals(2000,TicketCollection.tickets.get(2).getPassenger().getSecurityCode());
+    }
+
+    @Test
+    public final void BuyTicketTestWithTransfer2() {
+        Passenger DummyPassenger = new Passenger("Ginphy", "Yuen", 22, "Man", "ginphy@gmail.com", "0412345678", "33414521", "0987198300912", 2000);
+        // Test choose city with invalid city name
+        when(scannerMock.nextInt()).thenReturn(3,4);
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("Ginphy")  // firstName
+                .thenReturn("Yuen")  // secondName
+                .thenReturn("22") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("ginphy@gmail.com")  // email
+                .thenReturn("0412345678")  // phoneNumber
+                .thenReturn("33414521")  // passportNumber
+                .thenReturn("1")
+                .thenReturn("0987198300912")
+                .thenReturn("2000");
+        try {
+            ticketSystem.buyTicket(5, 6);
+        }catch (Exception e){
+            ;
+        }
+        assertEquals(125,TicketCollection.tickets.get(4).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals(125,TicketCollection.tickets.get(5).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals(27,TicketCollection.tickets.get(4).getFlight().getAirplane().getBusinessSitsNumber());
+        assertEquals(27,TicketCollection.tickets.get(5).getFlight().getAirplane().getBusinessSitsNumber());
     }
 
     @Test

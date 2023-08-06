@@ -328,7 +328,7 @@ public class TicketSystem {
                         airplane2.setBusinessSitsNumber(airplane2.getBusinessSitsNumber() - 1);
                     } else {
                         airplane1.setEconomySitsNumber(airplane1.getEconomySitsNumber() - 1);
-                        airplane2.setBusinessSitsNumber(airplane2.getBusinessSitsNumber() - 1);
+                        airplane2.setEconomySitsNumber(airplane2.getEconomySitsNumber() - 1);
                     }
 
 //                    //  "select * from flight, airplane where flight_id=" + flight_id_first + " and flight.airplane_id=airplane.airplane_id");
