@@ -38,9 +38,9 @@ class FlightCollectionTest {
     void setup(){
         flights = new ArrayList<Flight>();
         flight1 = new Flight(3, "Beijing", "Suzhou", "SM003",
-                "China Airlines", "05/07/2023 00:00:00","16/06/2023 19:45:00", mockAirplane());
+                "China Airlines", "05/07/2023 00:00:00","16/08/2023 19:45:00", mockAirplane());
         flight2 = new Flight(4,"London", "Shanghai", "SM004",
-                "China Airlines", "15/02/2023 20:15:00", "16/02/2023 10:19:00", mockAirplane());
+                "China Airlines", "15/02/2023 20:15:00", "16/08/2023 10:19:00", mockAirplane());
         flights.add(flight1);
         flights.add(flight2);
         f = new FlightCollection();
@@ -77,7 +77,7 @@ class FlightCollectionTest {
     void testAddFlightsByInvalidCity(){
         flights = new ArrayList<Flight>();
         flight1 = new Flight(5, "Beijing123", "Suzhou", "SM005",
-                "China Airlines", "05/07/2023 00:00:00","16/06/2023 19:45:00",  mockAirplane());
+                "China Airlines", "05/07/2023 00:00:00","16/08/2023 19:45:00",  mockAirplane());
         flights.add(flight1);
         Throwable exception = assertThrows(RuntimeException.class, () -> {
             f.addFlights(flights);
@@ -90,7 +90,7 @@ class FlightCollectionTest {
         testAddFlights();
 
         flight1 = new Flight(3, "Beijing", "Suzhou", "SM003",
-                "China Airlines", "05/07/2023 00:00:00","16/06/2023 19:45:00",  mockAirplane());
+                "China Airlines", "05/07/2023 00:00:00","16/08/2023 19:45:00",  mockAirplane());
 
         Throwable exception = assertThrows(RuntimeException.class, () -> {
             f.addFlight(flight1);
