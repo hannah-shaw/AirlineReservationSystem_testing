@@ -63,38 +63,32 @@ public class TicketSystem {
             Flight flightConnectingTwoCities = FlightCollection.getFlightInfo(city1, connectCity);
 
             if(flightConnectingTwoCities != null){
-
                 System.out.println("There is special way to go there. And it is transfer way, like above. Way №" + counter);
-
-                idFirst = depart_to.getFlightID();
-
-                idSecond = flightConnectingTwoCities.getFlightID();
-
-
+                ticketCollection.getAllTickets();
+                System.out.println("\nEnter two IDs of tickets you want to choose:");
+                int ticket_id1 = in.nextInt();
+                int ticket_id2 = in.nextInt();
+                buyTicket(ticket_id1, ticket_id2); //pass two tickets and buy them
             }
-
-            counter++;
-
-            ticketCollection.getAllTickets();
-            System.out.println("\nEnter two IDs of tickets you want to choose:");
-            int ticket_id1 = in.nextInt();
-            int ticket_id2 = in.nextInt();
-            buyTicket(ticket_id1, ticket_id2); //pass two tickets and buy them
+//            else {
+//                System.out.println("No such a plane");
+//            }
+//            counter++;
 //            return;
         }
     }
 
-    public void showTicket()
-    {
-        try{
-            System.out.println("You have bought a ticket for flight" + ticket.flight.getDepartFrom() + " - " + ticket.flight.getDepartTo()
-            + "\n\nDetails:");
-            System.out.println(this.ticket.toString());
-        }
-        catch (NullPointerException e){
-            return;
-        }
-    }
+//    public void showTicket()
+//    {
+//        try{
+//            System.out.println("You have bought a ticket for flight" + ticket.flight.getDepartFrom() + " - " + ticket.flight.getDepartTo()
+//            + "\n\nDetails:");
+//            System.out.println(this.ticket.toString());
+//        }
+//        catch (NullPointerException e){
+//            return;
+//        }
+//    }
 
     public void buyTicket(int ticket_id) throws Exception{
         //method for buying one ticket with direct flight
@@ -224,14 +218,14 @@ public class TicketSystem {
         int flight_id_second = 0;
 
 
-        System.out.println(ticket_id_first + " " + ticket_id_second);
+//        System.out.println(ticket_id_first + " " + ticket_id_second);
 
         Ticket validTicketfirst = TicketCollection.getTicketInfo(ticket_id_first);
 
-        Ticket validTicketSecond = TicketCollection.getTicketInfo(ticket_id_first);
+        Ticket validTicketSecond = TicketCollection.getTicketInfo(ticket_id_second);
 
 
-        System.out.println("Processing...");
+//        System.out.println("Processing...");
 
         //if there is a valid ticket id was input then we buy it, otherwise show message
 

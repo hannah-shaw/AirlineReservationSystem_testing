@@ -44,26 +44,48 @@ class TicketSystemTest {
     }
 
     @Test
+    public final void buyTicketWithNoExist() {
+        Throwable exception2 = assertThrows(IllegalArgumentException.class, () -> {
+            ticketSystem.buyTicket(1,5);
+        });
+        Assertions.assertEquals("This ticket does not exist or has been booked.", exception2.getMessage());
+    }
+
+    @Test
     public final void BuyTicketTestWithTransfer() {
+        Passenger DummyPassenger = new Passenger("Ginphy", "Yuen", 22, "Man", "ginphy@gmail.com", "0412345678", "33414521", "0987198300912", 2000);
         // Test choose city with invalid city name
+        when(scannerMock.nextInt()).thenReturn(3,4);
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("Ginphy")  // firstName
+                .thenReturn("Yuen")  // secondName
+                .thenReturn("22") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("ginphy@gmail.com")  // email
+                .thenReturn("0412345678")  // phoneNumber
+                .thenReturn("33414521")  // passportNumber
+                .thenReturn("1")
+                .thenReturn("0987198300912")
+                .thenReturn("2000");
         try {
-            when(scannerMock.nextInt()).thenReturn(3,4);
-            Mockito.when(scannerMock.nextLine())
-                    .thenReturn("Ginphy")  // firstName
-                    .thenReturn("Yuen")  // secondName
-                    .thenReturn("22") //age
-                    .thenReturn("Man")  // gender
-                    .thenReturn("ginphy@gmail.com")  // email
-                    .thenReturn("0412345678")  // phoneNumber
-                    .thenReturn("33414521")  // passportNumber
-                    .thenReturn("1")
-                    .thenReturn("0987198300912")
-                    .thenReturn("2000");
             ticketSystem.chooseTicket("BEIJING", "SHANGHAI");
+        }catch (Exception e){
+            ;
         }
-        catch (Exception e1) {
-            Assertions.assertEquals("City name cannot miss", e1.getMessage());
-        }
+        assertEquals("Ticket{" +'\n'+
+                "Price=" + 1344 + "KZT, " + '\n' +
+                FlightCollection.flights.get(0) +'\n'+ "Vip status=" + false + '\n' +
+                DummyPassenger+'\n'+ "Ticket was purchased=" + true + "\n}", ticketSystem.ticket2.toString());
+        assertEquals("Ticket{" +'\n'+
+                "Price=" + 1344 + "KZT, " + '\n' +
+                FlightCollection.flights.get(0) +'\n'+ "Vip status=" + false + '\n' +
+                DummyPassenger+'\n'+ "Ticket was purchased=" + true + "\n}", ticketSystem.ticket.toString());
+        assertEquals(1344,TicketCollection.tickets.get(2).getPrice());
+        assertEquals(1344,TicketCollection.tickets.get(3).getPrice());
+        assertEquals(126,TicketCollection.tickets.get(2).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals(126,TicketCollection.tickets.get(3).getFlight().getAirplane().getEconomySitsNumber());
+        assertEquals("0987198300912",TicketCollection.tickets.get(2).getPassenger().getCardNumber());
+        assertEquals(2000,TicketCollection.tickets.get(2).getPassenger().getSecurityCode());
     }
 
     @Test

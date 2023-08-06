@@ -151,12 +151,10 @@ class TicketSystemIntegrationTest {
     @Test
     public final void ChooseTicketTicketWithInvalidFlight() {
         // Test choose ticket with NO exist flight
-        try {
+        Throwable exception1 = assertThrows(RuntimeException.class, () -> {
             ticketSystem.chooseTicket("SHANGHAI", "SUZHOU");
-        }
-        catch (Exception e2) {
-            Assertions.assertEquals("No such flight exists", e2.getMessage());
-        }
+        });
+        Assertions.assertEquals("No such flight exists", exception1.getMessage());
     }
 
     @Test
