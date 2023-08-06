@@ -25,7 +25,7 @@ public class TicketSystem {
 
     public void chooseTicket(String city1, String city2) throws Exception
     {
-        int counter = 1;
+        //int counter = 1;
         int idFirst = 0;
         int idSecond = 0;
 
@@ -64,7 +64,7 @@ public class TicketSystem {
 
             if(flightConnectingTwoCities != null){
 
-                System.out.println("There is special way to go there. And it is transfer way, like above. Way №" + counter);
+                //System.out.println("There is special way to go there. And it is transfer way, like above. Way №" + counter);
 
                 idFirst = depart_to.getFlightID();
 
@@ -73,7 +73,7 @@ public class TicketSystem {
 
             }
 
-            counter++;
+            //counter++;
 
             ticketCollection.getAllTickets();
             System.out.println("\nEnter two IDs of tickets you want to choose:");
