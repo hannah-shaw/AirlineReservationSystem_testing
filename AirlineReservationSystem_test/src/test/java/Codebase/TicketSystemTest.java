@@ -26,23 +26,31 @@ class TicketSystemTest {
         Airplane airplane1 = new Airplane(5171, "Boeing747", 30, 130, 6);
         Airplane airplane2 = new Airplane(3009, "MH370", 50, 100, 15);
         Flight flight1 = new Flight(10, "SHANGHAI", "SUZHOU", "0001", "EasternChina", "05/07/2023 13:55:00", "16/07/2023 01:35:00", airplane1);
-        Flight flight2 = new Flight(10, "SUZHOU", "BEIJING", "7103", "EasternChina", "16/07/2023 05:35:00", "16/07/2023 15:15:00", airplane2);
+        Flight flight2 = new Flight(20, "SUZHOU", "BEIJING", "7103", "EasternChina", "16/07/2023 05:35:00", "16/07/2023 15:15:00", airplane2);
         Passenger passenger = new Passenger();
         //Passenger passenger = new Passenger("Barry","Ellen", 30, "Man", "HuangYH723@outlook.com", "0412345678", "CN", "10001", 2000);
-        Ticket ticket = new Ticket(1, 1000, flight1, false, passenger);//passenger hasn't been set, the age return 0.
+        Ticket ticket = new Ticket(1, 1000, flight1, false, passenger);//passenger hasn't been set, the age return default age:18.
+        Ticket ticket2 = new Ticket(2, 1200, flight2, false, passenger);//passenger hasn't been set, the age return default age:18.
         TicketCollection.tickets.add(ticket);
+        TicketCollection.tickets.add(ticket2);
         FlightCollection.flights.add(flight1);
         FlightCollection.flights.add(flight2);
         ticketSystem = new TicketSystem(ticketCollection, flightCollection,scannerMock);
     }
     @Test
-    public final void ChooseTicketTestWithInvalidCity() {
+    public final void ChooseTicketTestWithValidandInvalidCity() {
         // Test choose city with invalid city name
         try {
-            ticketSystem.chooseTicket("SHANG123", "SUZHOU");
+            ticketSystem.chooseTicket("SHA1231NG123", "SUZHOU");
         }
         catch (Exception e1) {
             Assertions.assertEquals("City name can only contain letter and space", e1.getMessage());
+        }
+        try {
+            ticketSystem.chooseTicket(null, null);
+        }
+        catch (Exception e2) {
+            Assertions.assertEquals("City name cannot be null", e2.getMessage());
         }
     }
 
@@ -72,8 +80,8 @@ class TicketSystemTest {
         TicketCollection.tickets.get(0).setTicketStatus(true);
         System.out.println(TicketCollection.tickets.toString());
 
-        when(scannerMock.nextInt()).thenReturn(2);
-        Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(2));
+        when(scannerMock.nextInt()).thenReturn(3);
+        Exception e = assertThrows(Exception.class, ()-> ticketSystem.buyTicket(3));
         Assertions.assertTrue(e.getMessage().contains("This ticket does not exist or has been booked."));
     }
     @Test
@@ -113,6 +121,17 @@ class TicketSystemTest {
                 .thenReturn("johnom");  // email
         Exception e3 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
         Assertions.assertTrue(e3.getMessage().contains("Invalid email format"));
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("John") // firstName
+                .thenReturn("Doe") // secondName
+                .thenReturn("30") //age
+                .thenReturn("Man") // gender
+                .thenReturn("john.doe@gmail.com") // email
+                .thenReturn("0412345678") // phoneNumber
+                .thenReturn("123456789") // passportNumber
+                .thenReturn("0");
+        Exception e7 = assertThrows(IllegalArgumentException.class, () -> ticketSystem.buyTicket(1));
+        Assertions.assertTrue(e7.getMessage().contains("Purchased cancelled"));
         Mockito.when(scannerMock.nextLine())
                 .thenReturn("John")  // firstName
                 .thenReturn("Doe")  // secondName
@@ -156,6 +175,8 @@ class TicketSystemTest {
 
     @Test
     public void testValidateTicketInformation() throws Exception {
+        TicketCollection.tickets.get(0).setClassVip(true);
+        TicketCollection.tickets.get(1).setClassVip(false);
         Passenger DummyPassenger = new Passenger("Ginphy", "Yuen", 22, "Man", "ginphy@gmail.com", "0412345678", "33414521", "0987198300912", 2000);
         Mockito.when(scannerMock.nextLine())
                 .thenReturn("Ginphy")  // firstName
@@ -171,8 +192,26 @@ class TicketSystemTest {
         ticketSystem.buyTicket(1);
         assertEquals("Ticket{" +'\n'+
                 "Price=" + 1120 + "KZT, " + '\n' +
-                FlightCollection.flights.get(0) +'\n'+ "Vip status=" + false + '\n' +
+                FlightCollection.flights.get(0) +'\n'+ "Vip status=" + true + '\n' +
                 DummyPassenger+'\n'+ "Ticket was purchased=" + true + "\n}", ticketSystem.ticket.toString());
+
+        // ADDED for coverage
+        assertEquals(29,TicketCollection.tickets.get(0).getFlight().getAirplane().getBusinessSitsNumber());
+        Passenger DummyPassenge2 = new Passenger("Ginphy", "Yuen", 22, "Man", "ginphy@gmail.com", "0412345678", "33414521", "0987198300912", 2000);
+        Mockito.when(scannerMock.nextLine())
+                .thenReturn("Ginphy")  // firstName
+                .thenReturn("Yuen")  // secondName
+                .thenReturn("22") //age
+                .thenReturn("Man")  // gender
+                .thenReturn("ginphy@gmail.com")  // email
+                .thenReturn("0412345678")  // phoneNumber
+                .thenReturn("33414521")  // passportNumber
+                .thenReturn("1")
+                .thenReturn("0987198300912")
+                .thenReturn("2000");
+        ticketSystem.buyTicket(2);
+        assertEquals(99,TicketCollection.tickets.get(1).getFlight().getAirplane().getEconomySitsNumber());
+
     }
 
     @Test

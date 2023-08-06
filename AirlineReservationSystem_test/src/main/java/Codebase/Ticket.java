@@ -16,7 +16,7 @@ public class Ticket
         this.setFlight(flight);
         this.classVip = classVip;
         this.status = false;
-        this.ticket_id=ticket_id;
+        this.ticket_id = ticket_id;
         this.price = price;
 
 

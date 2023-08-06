@@ -30,14 +30,16 @@ public class TicketSystem {
         flight = flightCollection.getFlightInfo(city1, city2);
 
         // Check if the city parameters are valid
-        if(city1 == "" || city2 == ""){
-            throw new IllegalArgumentException("City name cannot miss");
-        }
-        if (!city1.matches("^[a-zA-Z\\s]+$") || !city2.matches("^[a-zA-Z\\s]+$"))
-            throw new IllegalArgumentException("City name can only contain letter and space");
+        // delete below two lines
+//        if(city1 == "" || city2 == ""){
+//            throw new IllegalArgumentException("City name cannot miss");
+//        }
+//        if (!city1.matches("^[a-zA-Z\\s]+$") || !city2.matches("^[a-zA-Z\\s]+$"))
+//            throw new IllegalArgumentException("City name can only contain letter and space");
 
         if(flight != null)
         {
+            //For display only, can be delete...
             ticketCollection.getAllTickets();
             System.out.println("\nEnter ID of ticket you want to choose:");
             int ticket_id = in.nextInt();
@@ -102,15 +104,16 @@ public class TicketSystem {
         //if there is a valid ticket id was input then we buy it, otherwise show message.
         if(validTicket == null)
         {
-            System.out.println("This ticket does not exist or has been booked.");
+            //delete
+            //System.out.println("This ticket does not exist or has been booked.");
             throw new IllegalArgumentException("This ticket does not exist or has been booked.");
 //            System.out.println("This ticket does not exist or has been booked.");
         }else{
             //select flight_id from ticket where ticket_id=" + ticket_id
-
+            // Here I delete the try catch cuz it's redundant.
             flight_id = validTicket.getFlight().getFlightID();
 
-            try{
+
                 System.out.println("Enter your First Name: ");
                 //String firstName = "";
                 String firstName = in.nextLine();
@@ -163,7 +166,7 @@ public class TicketSystem {
                 int purch = Integer.parseInt(in.nextLine());
                 if (purch == 0)
                 {
-                    return;
+                    throw new IllegalArgumentException("Purchased cancelled");
                 } else if (purch == 1)
                 {
                     System.out.println("----------------------You are buying ticket now.----------------------");
@@ -176,12 +179,15 @@ public class TicketSystem {
                     ticket = TicketCollection.getTicketInfo(ticket_id);
 
                     ticket.setPassenger(passenger);
-                    ticket.setTicket_id(ticket_id);
+                    //delete
+                    //ticket.setTicket_id(ticket_id);
                     ticket.setFlight(flight);
                     ticket.serviceTax();
-                    ticket.setPrice(ticket.getPrice());
-                    ticket.setClassVip(ticket.getClassVip());
+                    //delete because initialization cant be null
+                    //ticket.setPrice(ticket.getPrice());
+                    //ticket.setClassVip(ticket.getClassVip());
                     ticket.setTicketStatus(true);
+                    // test didn't consider number of vip
                     if (ticket.getClassVip() == true)
                     {
                         airplane.setBusinessSitsNumber(airplane.getBusinessSitsNumber() - 1);
@@ -207,11 +213,6 @@ public class TicketSystem {
                 passenger.setSecurityCode(securityCode);
                 System.out.println("Security code confirm");
 
-
-            } catch (PatternSyntaxException patternException)
-            {
-                patternException.printStackTrace();
-            }
         }
     }
     public void buyTicket(int ticket_id_first, int ticket_id_second) throws Exception{
