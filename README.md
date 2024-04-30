@@ -1,109 +1,113 @@
-# AirlineReservationSystem_testing
-Monash FIT5171 Assignment 1&2 Test Plan and Unit/Integration Testing on Airline Reservation System
-## Project Description
-A flight booking system is a system that automates the flight booking process to help book flights online. 
-It is essential to have a reliable and efficient booking system for an airline company. At the same time, it is critical to ensure that the booking system provides comprehensive information so that customer experience can be improved. One of the key aspects for the business is to secure reliable and efficient customer service. However, it is difficult to deliver a quality software solution without testing playing a major role in it.
-In this assignment, you will need to thoroughly test the essential functionality of the flight reservation system. In general, you will test and extend components (Java classes and methods) of the code baseusing the TDD approach
-## Test Suite Development
-You will apply a combination of appropriate unit and integration testing techniques to thoroughly test the extended code and present your test suite as a part of your test plan report in a tabular format. You can create separate tables for presenting unit and integration test cases per class.Validation: At some stage, certain attributes of some classes need to be validated in different ways. The following are a minimal set of validation that should be part of your test suite. You should always generate errors or throw exceptions where appropriate.
+# 航空公司预订系统测试
+Monash University 测试计划以及航空预订系统的单元/集成测试
+## 项目描述
+航班预订系统是一种自动化航班预订流程的系统，帮助在线预订航班。
+对于航空公司来说，拥有可靠高效的预订系统至关重要。同时，关键是确保预订系统提供全面的信息，以改善客户体验。业务的一个关键方面是确保可靠高效的客户服务。然而，在没有测试发挥主要作用的情况下，很难提供高质量的软件解决方案。
+在这项任务中需要彻底测试航班预订系统的基本功能，使用TDD方法测试和扩展代码库的组件（Java类和方法）。
+## 测试套件开发
+我们采用了适当的单元测试和集成测试技术的组合来彻底测试扩展代码，并将我们的测试套件以表格格式作为测试计划报告的一部分呈现。我们创建了单独的表格来呈现每个类的单元和集成测试用例。验证：在某个阶段，某些类的某些属性需要以不同的方式进行验证。以下是我们测试套件包含的最小验证集。
 
-Airplane 
+飞机
 
-When some attribute of the airplane is being set, the following unit testing conditions need to be satisfied.
-1. Ensure all fields/details for an airplane like airplaneID, businessSitsNumber, crewSitsNumber, etc. are tested.
-2. Seat number must be in the range [1, 300].
-   
-Flight
+当设置飞机的某个属性时，需要满足以下单元测试条件。
+1. 确保测试飞机的所有字段/细节，如飞机ID、商务座位数、机组座位数等。
+2. 座位号必须在[1, 300]范围内。
 
-When a flight is being added to the system, following conditions must be met.
-1. All fields are required.
-2. Date must be in DD/MM/YY format.
-3. Time must be in HH:MM:SS format.
-4. Ensure the same flight is not already in the system.
-   
-Person
-      
-When a person is being created or returned, test following:
-1. All fields of a Person class are required to create a person.
-2. The gender field has following options ‘Woman’, ‘Man’, ’Non-binary | gender diverse’, ‘Prefer not to say’ and ‘Other
-3. The first name and last name should not start with a number or symbol and can contain only lower-case and upper-case alphabet letters.
-   
-Passenger
+航班
 
-When a passenger is being created or returned, test following:
-1. All fields of a passenger are required. 
-2. Phone numbers follow a pattern. Within Australia, mobile phone numbers begin with 04 or 05 – the 
-Australian national trunk code" 0, plus the mobile indicator 4 or 5, then followed by eight digits. This is generally written as 04XX XXX XXX within Australia or as +61 4XX XXX XXX for an international audience.
-3. The email follows a valid pattern “abc@domain.com”.
-4. The passport number should not be more than 9 characters long.
-5. When a passenger is being added, it must include the passenger’s first name, last name, age, and gender following the person who is becoming a passenger
-   
-Ticket
+当将航班添加到系统时，必须满足以下条件。
+1. 所有字段都是必需的。
+2. 日期必须采用DD/MM/YY格式。
+3. 时间必须采用HH:MM:SS格式。
+4. 确保系统中不存在相同的航班。
 
-When a ticket is being created, it needs to satisfy the following conditions.
-1. Values for the ticket status must be ‘True’ or ‘False’ for the booked and available tickets respectively.
-2. Discount is always applied based on the age category of the passenger.
-3. Price is always applied to a ticket.
-4. The price and service tax are valid values (integer or real numbers etc.)
-5. The service tax is always applied when a ticket is sold.
-6. Ticker class receives valid information of flight and passenger.
+人员
 
-TicketSystem 
+当创建或返回人员时，测试以下内容：
+1. 创建人员时必须使用Person类的所有字段。
+2. 性别字段有以下选项：“女性”、“男性”、“非二元|性别多样化”、“选择不透露”和“其他”。
+3. 名字和姓氏不应以数字或符号开头，只能包含大小写字母。
 
-1. When choosing a ticket, a valid city is used.
-2. If a passenger chooses an already booked ticket it should display an error message.
-3. Appropriate checks have been implemented to validate passenger information
-4. Appropriate checks have been implemented to validate flight information
-5. Appropriate checks have been implemented to validate ticket information
-6. A correct value is displayed to the passenger when buying a ticket.
+乘客
 
-TicketCollection
+当创建或返回乘客时，测试以下内容：
+1. 所有乘客的字段都是必需的。
+2. 电话号码遵循一种模式。在澳大利亚境内，移动电话号码以04或05开头 - 澳大利亚国家市话代码“0”，加上移动指示器4或5，然后是八位数字。在澳大利亚通常写作04XX XXX XXX，对于国际观众则写作+614XX XXX XXX。
+3. 电子邮件遵循有效的模式“abc@domain.com”。
+4. 护照号码长度不应超过9个字符。
+5. 当添加乘客时，必须包括乘客的名字、姓氏、年龄和性别，遵循成为乘客的人员。
 
-1. Whenever a ticket is being added to the TicketCollection, it must be validated.
-2. When trying to get a ticket, the correct ticket is returned.
-FlightCollection
-1. When adding a flight into the system, test if it conforms with the requirement as a flight and Flight Collection.
-2. Valid city names must be used.
-3. When trying to get flight information, a valid flight is returned.
+票
 
-## Testing and System Improvement
-Unit testing. each unit in the system against the test suite. write test classes/methods for each unit, perform automated testing, and improve the unit to pass the test suite.
-Integration testing.test the system under integration testing using the bottom-up/top-down integration approach or a combination of them where appropriate.
+当创建票时，需要满足以下条件。
+1. 票务状态的值必须为“True”（已预订）或“False”（可用）。
+2. 折扣始终基于乘客的年龄类别应用。
+3. 价格始终应用于票务。
+4. 价格和服务税是有效值（整数或实数等）。
+5. 当出售票时总是应用服务税。
+6. 票务类接收航班和乘客的有效信息。
 
-# FIT5171 Project Assignment 2 Software Quality Monitoring & Improvement
+票务系统
 
-## 1. Project description
+1. 在选择票务时，必须使用有效的城市。
+2. 如果乘客选择已预订的票务，则应显示错误消息。
+3. 已实施适当的检查以验证乘客信息
+4. 已实施适当的检查以验证航班信息
+5. 已实施适当的检查以验证票务信息
+6. 当购买票务时向乘客显示正确的值。
 
-With functionality developed and tested in Assignment 1 for the flight reservation system, we will focus on measuring and assessing the quality of the code base and the test suite in this Assignment 2.
-Besides the environments and libraries used in the previous assignment, we will use one more library, PIT(http://pitest.org/), for mutation testing. Moreover, we will use the ISO/IEC 25010 International Standard - Systems and Software Engineering - Systems and Software Quality Requirements and Evaluation (SQuaRE) - System and Software Quality Models (https://iso25000.com/index.php/en/iso-25000-standards/iso-25010. The PDF version of 
-ISO/IEC 25010 is available on Moodle.) to analyse the quality of your code base.
+票务收集
 
-## 2. Problem description
+1. 每当票务添加到票务收集中时，必须进行验证。
+2. 尝试获取票务时返回正确的票务。
 
-You will make use of your improved code base from Assignment 1 and will measure, analyse, comment on and improve the quality of the code base. Additionally, you will perform automated mutation testing on the code base.2.1 Code Quality Analysis & Improvement & Critique 
-In this part, you will use ISO/IEC 25010 to measure, monitor and analyse the quality of your code base from Assignment 1. Specifically, you will need to complete the following tasks.
-1. Successfully build your improved/extended code base to make sure all the test cases pass without errors or assertion failures.
-2. Observe the quality of the code based on the ISO/IEC 25010 Software Quality Model. 
-Analyse the code base in terms of the following aspects:
-● Functional Completeness
-● Functional Correctness
-● Functional Appropriateness
-● Time Behaviour
-● Resource Utilisation
-● Capacity
-● User Error Protection
-● Accessibility
-● Fault Tolerance
-3. Informed by the above analysis, improve the quality of the code base.
-4. For each of the above aspects, you will need to describe the following in your report.
-● Discuss the reasonableness of the quality metrics employed by ISO/IEC 25010 Software Quality Model.
-● Identify parts of the code (or test) that require significant improvements.
+航班收集
 
-### 2.2 Mutation Testing via PIT
+1. 将航班添加到系统中时，测试是否符合航班和航班收集的要求。
+2. 必须使用有效的城市名称。
+3. 尝试获取航班信息时，返回有效的航班。
 
-Mutation testing is a technique to assess the quality of the test suite, by making small syntactic changes to the actual code and observing the behavioural changes of the test suite in response to these changes.
-You will perform automated mutation testing. Specifically, you will need to complete the following tasks.
-1. Use the PIT library (http://pitest.org/) to perform automated mutation testing on the code base,
-2. Observe the issues identified by PIT (mutation testing), and discuss the quality of the test suite, and
-3. Improve the quality of the test suite based on the observations you make.
-Please refer to the PIT website (http://pitest.org/quickstart/) for more details on the setup and configuration of PIT. For example, you can configure which part (classes or packages) of the code base can be mutated and which tests can be executed. You can also configure which mutation operators can be applied.
+## 测试和系统改进
+单元测试。针对系统中的每个单元对测试套件进行测试。为每个单元编写测试类/方法，执行自动化测试，并改进单元以通过测试套件。
+集成测试。使用自底向上/自顶向下集成方法或适当的组合对集成测试下的系统进行测试。
+
+# FIT5171项目软件质量监控与改进
+
+## 1. 项目描述
+
+在作业1中开发和测试了航班预订系统的功能之后，我们专注于测量和评估代码库和测试套件的质量。
+除了前一个作业中使用的环境和库之外，我们使用了一个额外的库，PIT（http://pitest.org/），进行突变测试，以及使用ISO/IEC 25010国际标准作为衡量指标
+
+-系统和软件工程 
+- 系统和软件质量要求和评估（SQuaRE）
+- - 系统和软件质量模型（https://iso25000.com/index.php/en/iso-25000-standards/iso-25010）
+
+## 2. 工作描述
+
+我们使用作业1中改进的代码库进行测量、分析、评论和改进代码库的质量。此外，我们还对代码库进行自动突变测试。
+
+### 2.1代码质量分析与改进与批评
+在此部分中，我们使用ISO/IEC 25010来衡量、监控和分析来自作业1的代码库的质量。
+1. 成功构建改进/扩展的代码库，以确保所有测试用例都可以通过，不会出现错误或断言失败。
+2. 根据ISO/IEC 25010软件质量模型观察代码库的质量。
+我们根据以下方面分析代码库：
+● 功能完整性
+● 功能正确性
+● 功能适当性
+● 时间行为
+● 资源利用率
+● 容量
+● 用户错误保护
+● 可访问性
+● 容错性
+3. 在上述分析的指导下，改进代码库的质量。
+4. 我们在最后的报告中描述了以下内容。
+● 讨论ISO/IEC 25010软件质量模型采用的质量指标的合理性。
+● 确定需要重大改进的代码（或测试）的部分。
+
+### 2.2 通过PIT进行突变测试
+
+突变测试是一种评估测试套件质量的技术，它通过对实际代码进行小的语法更改，并观察测试套件对这些更改的行为变化来进行。我们执行了自动化突变测试。
+1. 使用PIT库（http://pitest.org/）对代码库执行自动化突变测试，
+2. 观察PIT（突变测试）识别的问题，并讨论测试套件的质量，并
+3. 根据我们的实验观察改进测试套件的质量。
